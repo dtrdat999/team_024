@@ -3245,13 +3245,18 @@
             }
             const username = prompt("Nhập tên tài khoản để cấp quyền chỉnh sửa:");
             if (username === "dtdat999") {
-                isLoggedIn = true;
-                alert("Đăng nhập thành công! Bạn đã có quyền chỉnh sửa.");
-                document.getElementById('btnLogin').textContent = 'Đăng xuất';
-                document.getElementById('btnSave').style.display = 'inline-block';
-                document.querySelectorAll('[data-was-editable="true"]').forEach(el => {
-                    el.setAttribute('contenteditable', 'true');
-                });
+                const password = prompt("Nhập mật khẩu:");
+                if (password === "999999") {
+                    isLoggedIn = true;
+                    alert("Đăng nhập thành công! Bạn đã có quyền chỉnh sửa.");
+                    document.getElementById('btnLogin').textContent = 'Đăng xuất';
+                    document.getElementById('btnSave').style.display = 'inline-block';
+                    document.querySelectorAll('[data-was-editable="true"]').forEach(el => {
+                        el.setAttribute('contenteditable', 'true');
+                    });
+                } else if (password !== null) {
+                    alert("Sai mật khẩu! Bạn chỉ có quyền xem.");
+                }
             } else if (username) {
                 alert("Sai tài khoản! Bạn chỉ có quyền xem.");
             }
