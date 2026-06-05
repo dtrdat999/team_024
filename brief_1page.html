@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindFeng — 1-Page Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C; --gold-bg: #FDF6E3; --teal: #1A7A6A; --teal-bg: #E2F4F0;
+  --navy: #0F2340; --navy-mid: #1E3A5F; --red: #C0392B; --red-bg: #FDECEA;
+  --gray-100: #F0EEEB; --gray-200: #DDD9D3; --gray-400: #9A9690;
+  --gray-600: #5A5652; --gray-800: #2C2A28;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: #fff;
+  color: var(--gray-800);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 14mm 16mm 12mm;
+  background: #fff;
+  position: relative;
+}
+
+/* Header */
+.header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--navy);
+  margin-bottom: 16px;
+}
+.logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 700; color: var(--gold);
+  letter-spacing: -0.01em; line-height: 1;
+}
+.logo-tagline { font-size: 11px; color: var(--gray-600); margin-top: 3px; }
+.header-meta { text-align: right; font-size: 11px; color: var(--gray-400); }
+.header-meta strong { color: var(--navy); display: block; font-size: 12px; }
+
+/* Section title */
+.sec {
+  margin-bottom: 14px;
+}
+.sec-title {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sec-title::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+
+/* 2-col layout */
+.col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.col3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+/* Cards */
+.card {
+  background: var(--gray-100);
+  border-radius: 6px;
+  padding: 11px 13px;
+}
+.card-title { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.card-body { font-size: 11.5px; color: var(--gray-600); line-height: 1.6; }
+
+/* Highlight box */
+.hbox {
+  background: var(--navy);
+  color: #fff;
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.hbox-title { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+.hbox-body { font-size: 12px; line-height: 1.6; }
+
+/* Gold box */
+.gbox {
+  background: var(--gold-bg);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 13px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Teal box */
+.tbox {
+  background: var(--teal-bg);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 13px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Pain row */
+.pain-row { display: flex; gap: 10px; }
+.pain-item { flex: 1; }
+.pain-num { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--gold); opacity: 0.5; line-height: 1; margin-bottom: 3px; }
+.pain-t { font-size: 11.5px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+.pain-d { font-size: 11px; color: var(--gray-600); line-height: 1.5; }
+
+/* Persona row */
+.persona-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.persona-card { border-radius: 6px; border: 1px solid var(--gray-200); overflow: hidden; }
+.persona-top { padding: 9px 11px; }
+.persona-av { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; margin-bottom: 5px; }
+.persona-name { font-size: 11px; font-weight: 700; color: var(--navy); }
+.persona-role { font-size: 9.5px; color: var(--gray-400); }
+.persona-q { font-size: 10.5px; font-style: italic; color: var(--gray-600); line-height: 1.4; margin: 5px 0; border-left: 2px solid var(--gray-200); padding-left: 7px; }
+.persona-pain { font-size: 10px; color: var(--red); font-weight: 500; }
+.persona-want { font-size: 10px; color: var(--teal); font-weight: 500; }
+
+/* Feature table */
+.ftable { width: 100%; border-collapse: collapse; font-size: 11px; }
+.ftable th { background: var(--navy); color: #fff; font-weight: 600; padding: 7px 9px; text-align: left; font-size: 10px; letter-spacing: 0.03em; }
+.ftable td { padding: 6px 9px; border-bottom: 1px solid var(--gray-100); vertical-align: top; }
+.ftable tr:last-child td { border-bottom: none; }
+.badge { display: inline-block; padding: 1px 7px; border-radius: 99px; font-size: 9.5px; font-weight: 600; }
+.b-red { background: var(--red-bg); color: var(--red); }
+.b-gold { background: var(--gold-bg); color: #7A5A1A; }
+.b-teal { background: var(--teal-bg); color: var(--teal); }
+.b-green { background: #EAF5EC; color: #1E7A35; }
+.b-s { background: #EAF5EC; color: #1E7A35; }
+.b-m { background: #FEF3C7; color: #B45309; }
+
+/* Stack pills */
+.pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.pill { background: rgba(255,255,255,0.12); color: #fff; font-size: 10px; padding: 3px 9px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.2); }
+
+/* Metrics row */
+.metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.metric { background: var(--gray-100); border-radius: 6px; padding: 9px 11px; }
+.metric-val { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--navy); }
+.metric-label { font-size: 10px; color: var(--gray-400); margin-top: 1px; }
+.metric-target { font-size: 10px; color: var(--teal); font-weight: 600; margin-top: 3px; }
+
+/* Timeline */
+.tl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.tl-item { background: var(--gray-100); border-radius: 6px; padding: 9px 10px; }
+.tl-wk { font-size: 9px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+.tl-t { font-size: 11px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.tl-li { font-size: 9.5px; color: var(--gray-600); padding: 2px 0; border-bottom: 1px solid var(--gray-200); }
+.tl-li:last-child { border-bottom: none; }
+.tl-li::before { content: '— '; color: var(--gold); }
+
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 8mm; left: 16mm; right: 16mm;
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--gray-200);
+  font-size: 10px; color: var(--gray-400);
+}
+
+/* AI flow */
+.ai-flow { display: flex; align-items: center; gap: 0; }
+.ai-step { flex: 1; background: var(--gray-100); border-radius: 6px; padding: 9px 10px; font-size: 11px; }
+.ai-step-num { font-size: 9px; font-weight: 700; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px; }
+.ai-step-title { font-weight: 700; color: var(--navy); font-size: 11.5px; margin-bottom: 2px; }
+.ai-step-desc { font-size: 10px; color: var(--gray-600); line-height: 1.4; }
+.ai-arrow { width: 20px; flex-shrink: 0; text-align: center; color: var(--gold); font-size: 14px; font-weight: 700; }
+
+@media print {
+  .page { margin: 0; padding: 10mm 14mm; }
+  body { background: #fff; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="logo-name">MindFeng</div>
+      <div class="logo-tagline">AI Chatbot Tư Vấn Phong Thủy &amp; Chọn Căn Hộ theo Mệnh</div>
+    </div>
+    <div class="header-meta">
+      <strong>Gate G1 — 1-Page Brief</strong>
+      Mã đề tài: A120K-154<br>
+      Deadline: 23:50 ngày 7/6/2026
+    </div>
+  </div>
+
+  <!-- PROBLEM + SOLUTION -->
+  <div class="sec">
+    <div class="sec-title">01 · Bài toán &amp; Giải pháp</div>
+    <div class="col2" style="gap:10px">
+      <div>
+        <div class="pain-row">
+          <div class="pain-item">
+            <div class="pain-num">01</div>
+            <div class="pain-t">Thông tin mâu thuẫn</div>
+            <div class="pain-d">Kiến thức phong thủy rải rác, không nhất quán — người mua không biết tin nguồn nào</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-num">02</div>
+            <div class="pain-t">Sales thiếu chuyên môn</div>
+            <div class="pain-d">40% khách hỏi phong thủy — sales lúng túng, mất momentum chốt deal</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-num">03</div>
+            <div class="pain-t">Chuyên gia khan hiếm</div>
+            <div class="pain-d">Phí tư vấn 3–10 triệu/lần. Khách tầm trung không tiếp cận được</div>
+          </div>
+        </div>
+      </div>
+      <div class="hbox">
+        <div class="hbox-title">Giải pháp — MindFeng</div>
+        <div class="hbox-body">AI tư vấn phong thủy nhất quán 24/7, cá nhân hóa theo mệnh cục (năm sinh + giới tính), gắn với dữ liệu căn hộ thực tế của từng dự án. <strong style="color:var(--gold)">Rule Engine Bát trạch</strong> làm xương sống đảm bảo nhất quán. <strong style="color:var(--gold)">RAG</strong> bổ sung chiều sâu. <strong style="color:var(--gold)">Claude LLM</strong> tổng hợp ngôn ngữ tự nhiên, cân bằng.</div>
+        <div class="pills">
+          <span class="pill">OpenAI/Claude API</span>
+          <span class="pill">RAG + pgvector</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">Next.js 14</span>
+          <span class="pill">Supabase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONA -->
+  <div class="sec">
+    <div class="sec-title">02 · Người dùng mục tiêu</div>
+    <div class="persona-row">
+      <div class="persona-card">
+        <div class="persona-top">
+          <div class="persona-av" style="background:#EAF0F8;color:#1E3A5F">NL</div>
+          <div class="persona-name">Nguyễn Thị Linh — 32t</div>
+          <div class="persona-role">Kế toán · Người mua lần đầu · HCM</div>
+          <div class="persona-q">"Nhỡ mua sai hướng thì cả đời hối hận."</div>
+          <div class="persona-pain">✗ Sợ mua sai · thông tin mâu thuẫn</div>
+          <div class="persona-want">✓ Giải thích rõ lý do · nhất quán</div>
+        </div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-top">
+          <div class="persona-av" style="background:#FEF3C7;color:#B45309">TM</div>
+          <div class="persona-name">Trần Quốc Minh — 43t</div>
+          <div class="persona-role">Giám đốc · Nhà đầu tư BĐS · HN</div>
+          <div class="persona-q">"Hướng tốt thì bán lại dễ hơn — đó là thực tế."</div>
+          <div class="persona-pain">✗ Tra thủ công mất thời gian</div>
+          <div class="persona-want">✓ So sánh nhanh · tóm tắt ngắn</div>
+        </div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-top">
+          <div class="persona-av" style="background:#E2F4F0;color:#1A7A6A">PH</div>
+          <div class="persona-name">Phạm Thu Hoa — 28t</div>
+          <div class="persona-role">Sales BĐS · 2 năm KN · Đà Nẵng</div>
+          <div class="persona-q">"Khách hỏi phong thủy là tôi lúng túng ngay."</div>
+          <div class="persona-pain">✗ Mất momentum · không có tool real-time</div>
+          <div class="persona-want">✓ Dùng được trên phone · response &lt;5s</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI ARCHITECTURE -->
+  <div class="sec">
+    <div class="sec-title">03 · Kiến trúc AI</div>
+    <div class="ai-flow">
+      <div class="ai-step">
+        <div class="ai-step-num">Input</div>
+        <div class="ai-step-title">User Profile + Căn hộ</div>
+        <div class="ai-step-desc">Năm sinh, giới tính, hướng cửa chính, hướng ban công, tầng</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-step" style="background:var(--navy);color:#fff">
+        <div class="ai-step-num" style="color:var(--gold)">Layer 1</div>
+        <div class="ai-step-title" style="color:#fff">Rule Engine</div>
+        <div class="ai-step-desc" style="color:rgba(255,255,255,0.7)">Bát trạch 8×8 lookup · điểm 1–10 · &lt;50ms</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-step" style="background:var(--navy-mid);color:#fff">
+        <div class="ai-step-num" style="color:var(--gold)">Layer 2</div>
+        <div class="ai-step-title" style="color:#fff">RAG Lookup</div>
+        <div class="ai-step-desc" style="color:rgba(255,255,255,0.7)">pgvector similarity · top-5 chunks · &lt;200ms</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-step" style="background:var(--teal);color:#fff">
+        <div class="ai-step-num" style="color:rgba(255,255,255,0.7)">Layer 3</div>
+        <div class="ai-step-title" style="color:#fff">Claude LLM</div>
+        <div class="ai-step-desc" style="color:rgba(255,255,255,0.8)">Tổng hợp · streaming · p95 &lt;4s</div>
+      </div>
+      <div class="ai-arrow">→</div>
+      <div class="ai-step" style="background:var(--gold-bg);border:1px solid var(--gold)">
+        <div class="ai-step-num" style="color:var(--gold)">Output</div>
+        <div class="ai-step-title" style="color:var(--navy)">Tư vấn 3 phần</div>
+        <div class="ai-step-desc">Tóm tắt 1 câu → Chi tiết → Lưu ý thực tế</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MVP FEATURES -->
+  <div class="sec">
+    <div class="sec-title">04 · MVP Features</div>
+    <table class="ftable">
+      <tr>
+        <th width="34%">Tính năng</th>
+        <th width="11%">Sprint</th>
+        <th width="11%">Effort</th>
+        <th width="44%">Acceptance Criteria (AC chính)</th>
+      </tr>
+      <tr>
+        <td><strong>Auth + Profile Wizard</strong></td>
+        <td><span class="badge b-red">W1</span></td>
+        <td><span class="badge b-m">M</span></td>
+        <td>Đăng ký email/Google · Wizard 2 bước · Tính cung phi real-time bước 1</td>
+      </tr>
+      <tr>
+        <td><strong>Rule Engine Bát trạch</strong></td>
+        <td><span class="badge b-red">W1</span></td>
+        <td><span class="badge b-s">S</span></td>
+        <td>64 tổ hợp mã hóa đầy đủ · get_feng_score() &lt;50ms · 100% unit test</td>
+      </tr>
+      <tr>
+        <td><strong>Admin CRUD dự án/căn hộ</strong></td>
+        <td><span class="badge b-red">W1</span></td>
+        <td><span class="badge b-m">M</span></td>
+        <td>Nhập đơn lẻ + CSV hàng loạt · Feng score tự tính khi nhập</td>
+      </tr>
+      <tr>
+        <td><strong>AI Chat (streaming)</strong></td>
+        <td><span class="badge b-gold">W2</span></td>
+        <td><span class="badge b-m">M</span></td>
+        <td>Response 3 phần · streaming token-by-token · p95 &lt;4s · lịch sử lưu</td>
+      </tr>
+      <tr>
+        <td><strong>RAG Pipeline</strong></td>
+        <td><span class="badge b-gold">W2</span></td>
+        <td><span class="badge b-m">M</span></td>
+        <td>Upload PDF → chunk → embed → pgvector · fallback về rule engine</td>
+      </tr>
+      <tr>
+        <td><strong>Feng Score Badge</strong></td>
+        <td><span class="badge b-gold">W2</span></td>
+        <td><span class="badge b-s">S</span></td>
+        <td>Badge xanh/vàng/đỏ + điểm trên card căn · filter "hợp mệnh tôi"</td>
+      </tr>
+      <tr>
+        <td><strong>AI Comparison Card</strong></td>
+        <td><span class="badge b-gold">W2</span></td>
+        <td><span class="badge b-s">S</span></td>
+        <td>2–3 căn gợi ý sau chat · top-pick highlighted · nút đặt lịch tạo lead</td>
+      </tr>
+      <tr>
+        <td><strong>Lead Capture + Sales Dashboard</strong></td>
+        <td><span class="badge b-teal">W3</span></td>
+        <td><span class="badge b-m">M</span></td>
+        <td>Lead tạo với full context · email notification &lt;2 phút · sales dashboard</td>
+      </tr>
+      <tr>
+        <td><strong>Mobile Responsive + PWA</strong></td>
+        <td><span class="badge b-teal">W3</span></td>
+        <td><span class="badge b-s">S</span></td>
+        <td>375px trở lên · Lighthouse mobile ≥80 · add to homescreen</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- TIMELINE + METRICS -->
+  <div class="col2" style="gap:12px;margin-bottom:14px">
+    <div class="sec" style="margin-bottom:0">
+      <div class="sec-title">05 · Lộ trình 4 tuần</div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-wk">Tuần 1</div>
+          <div class="tl-t">Foundation</div>
+          <div class="tl-li">Auth + Wizard</div>
+          <div class="tl-li">Rule Engine</div>
+          <div class="tl-li">Admin CRUD</div>
+          <div class="tl-li">Deploy skeleton</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-wk">Tuần 2</div>
+          <div class="tl-t">AI Core</div>
+          <div class="tl-li">RAG pipeline</div>
+          <div class="tl-li">Claude chat</div>
+          <div class="tl-li">Feng badge</div>
+          <div class="tl-li">Comparison card</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-wk">Tuần 3</div>
+          <div class="tl-t">Features</div>
+          <div class="tl-li">Lead capture</div>
+          <div class="tl-li">Sales dashboard</div>
+          <div class="tl-li">Email notify</div>
+          <div class="tl-li">PWA + mobile</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-wk">Tuần 4</div>
+          <div class="tl-t">Polish</div>
+          <div class="tl-li">UI/UX refine</div>
+          <div class="tl-li">Edge cases</div>
+          <div class="tl-li">Load testing</div>
+          <div class="tl-li">Demo + docs</div>
+        </div>
+      </div>
+    </div>
+    <div class="sec" style="margin-bottom:0">
+      <div class="sec-title">06 · Chỉ số thành công</div>
+      <div class="metrics-row">
+        <div class="metric"><div class="metric-val">≥70%</div><div class="metric-label">Chat session hoàn thành</div><div class="metric-target">Core engagement</div></div>
+        <div class="metric"><div class="metric-val">≥80%</div><div class="metric-label">Wizard completion rate</div><div class="metric-target">Onboarding funnel</div></div>
+        <div class="metric"><div class="metric-val">≥20%</div><div class="metric-label">Đặt lịch sau chat</div><div class="metric-target">Intent signal</div></div>
+        <div class="metric"><div class="metric-val">&lt;4s</div><div class="metric-label">AI response p95</div><div class="metric-target">UX quality</div></div>
+        <div class="metric"><div class="metric-val">≥30</div><div class="metric-label">Lead/tháng</div><div class="metric-target">Business value</div></div>
+        <div class="metric"><div class="metric-val">≥99%</div><div class="metric-label">Uptime</div><div class="metric-target">Reliability</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UVP -->
+  <div class="sec" style="margin-bottom:0">
+    <div class="sec-title">07 · Điểm khác biệt</div>
+    <div class="tbox">
+      <strong style="color:var(--teal)">MindFeng ≠ app đặt vé hay marketplace.</strong> Đây là lớp tư vấn AI — kết hợp duy nhất giữa Rule Engine học thuật (tính nhất quán) + RAG kho tri thức (chiều sâu) + LLM (ngôn ngữ tự nhiên) + dữ liệu căn hộ thực tế (ứng dụng ngay). Không thầy phong thủy nào hay app thông thường nào có đủ 4 yếu tố này cùng lúc.
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>MindFeng — Product Brief v1.0 · Tháng 6/2026</span>
+    <span>OpenAI/Claude · RAG · FastAPI · Next.js · Supabase · Deployed: Vercel + Railway</span>
+  </div>
+</div>
+</body>
+</html>
