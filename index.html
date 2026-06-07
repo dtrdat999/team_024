@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V-FENG Compass — Gate G1 · Brief · PRD · Wireframe</title>
+<meta name="description" content="V-FENG Compass Gate G1 deliverable: Product Brief, Full PRD, and Wireframe UI Flow for AI Feng Shui Real Estate Assistant.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B1D36;--navy-mid:#1E3A5F;--navy-lt:#2C5282;
+  --gold:#B8913A;--gold-lt:#D4AC5A;--gold-bg:#FDF8EE;
+  --jade:#1A6B5A;--jade-bg:#E8F4F0;
+  --crimson:#A0272A;--crimson-bg:#FDECEA;
+  --amber:#92610A;--amber-bg:#FEF3C7;
+  --g50:#F8F7F4;--g100:#EEECE8;--g200:#D8D4CC;
+  --g400:#9A9690;--g600:#5A5652;--g800:#2C2A28;
+  --white:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Source Serif 4',Georgia,serif;
+  background:var(--g50);color:var(--g800);
+  font-size:14px;line-height:1.7;
+}
+
+/* ─── TOPBAR ─── */
+.topbar{
+  background:var(--navy);color:var(--white);
+  padding:0 32px;
+  display:flex;justify-content:space-between;align-items:center;
+  position:sticky;top:0;z-index:200;
+  height:56px;
+  border-bottom:2px solid rgba(184,145,58,0.4);
+}
+.tb-brand{display:flex;align-items:center;gap:10px}
+.tb-compass{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(184,145,58,0.2);border:1px solid rgba(184,145,58,0.4);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.tb-compass svg{fill:var(--gold-lt);width:14px;height:14px}
+.tb-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:700;color:var(--white);
+}
+.tb-name span{color:var(--gold-lt)}
+.tb-badge{
+  font-size:9px;font-weight:600;letter-spacing:0.1em;
+  background:rgba(184,145,58,0.2);border:1px solid rgba(184,145,58,0.35);
+  color:var(--gold-lt);padding:3px 9px;border-radius:3px;
+  font-family:'DM Mono',monospace;margin-left:8px;
+}
+
+/* ─── TOP TABS ─── */
+.top-tabs{
+  display:flex;gap:0;
+}
+.top-tab{
+  padding:8px 18px;
+  font-family:'DM Mono',monospace;
+  font-size:11px;font-weight:600;letter-spacing:0.06em;
+  cursor:pointer;
+  color:rgba(255,255,255,0.5);
+  border:1px solid transparent;
+  border-bottom:none;
+  border-radius:6px 6px 0 0;
+  transition:all 0.15s;
+  text-transform:uppercase;
+  background:transparent;
+}
+.top-tab:hover{color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.05)}
+.top-tab.active{
+  color:var(--gold-lt);
+  background:var(--g50);
+  border-color:rgba(184,145,58,0.3);
+}
+
+/* ─── LAYOUT ─── */
+.layout{display:flex;min-height:calc(100vh - 56px)}
+
+/* ─── SIDEBAR NAV ─── */
+.sidenav{
+  width:256px;flex-shrink:0;
+  background:var(--white);
+  border-right:1px solid var(--g200);
+  position:sticky;top:56px;
+  height:calc(100vh - 56px);
+  overflow-y:auto;
+  padding:20px 0;
+}
+.sn-group{margin-bottom:4px}
+.sn-group-label{
+  font-size:9px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--g400);
+  padding:8px 20px 4px;
+  font-family:'DM Mono',monospace;
+}
+.sn-item{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 20px;cursor:pointer;
+  font-size:12.5px;color:var(--g600);
+  border-left:2px solid transparent;
+  transition:all 0.15s;text-decoration:none;
+}
+.sn-item:hover{background:var(--g50);color:var(--g800)}
+.sn-item.active{
+  color:var(--jade);background:var(--jade-bg);
+  border-left-color:var(--jade);font-weight:600;
+}
+.sn-num{
+  font-size:9.5px;color:var(--g400);
+  font-family:'DM Mono',monospace;
+  min-width:20px;
+}
+.sn-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--g200);flex-shrink:0;
+}
+.sn-item.active .sn-dot{background:var(--jade)}
+
+/* ─── TAB PANE ─── */
+.tab-pane{display:none}
+.tab-pane.active{display:flex}
+
+/* ─── MAIN CONTENT ─── */
+.content{flex:1;overflow:hidden}
+.section{
+  display:none;
+  padding:40px 48px;
+  min-height:calc(100vh - 56px);
+}
+.section.active{display:block}
+
+/* ─── SECTION HEADER ─── */
+.sec-header{margin-bottom:32px}
+.sec-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--gold);
+  font-family:'DM Mono',monospace;margin-bottom:6px;
+}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;font-weight:700;color:var(--navy);
+  line-height:1.2;margin-bottom:10px;
+}
+.sec-desc{font-size:14px;color:var(--g600);max-width:700px;line-height:1.7}
+
+/* ─── DIVIDER ─── */
+.divider{border:none;border-top:1px solid var(--g200);margin:28px 0}
+.divider-gold{border-top-color:var(--gold);opacity:0.3}
+
+/* ─── SUB TITLE ─── */
+.sub-title{
+  font-family:'Source Serif 4',serif;
+  font-size:17px;font-weight:600;color:var(--navy);
+  margin-bottom:12px;margin-top:28px;
+  display:flex;align-items:center;gap:8px;
+}
+.sub-title::before{
+  content:'';width:3px;height:18px;
+  background:var(--gold);border-radius:2px;flex-shrink:0;
+}
+
+/* ─── CARD VARIANTS ─── */
+.card{background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:18px 20px}
+.card-sm{padding:14px 16px}
+.card-navy{background:var(--navy);border-color:transparent;color:var(--white)}
+.card-gold{background:var(--gold-bg);border-color:rgba(184,145,58,0.3)}
+.card-jade{background:var(--jade-bg);border-color:rgba(26,107,90,0.3)}
+.card-crimson{background:var(--crimson-bg);border-color:rgba(160,39,42,0.25)}
+
+/* ─── GRID ─── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* ─── BADGE ─── */
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace}
+.tag-navy{background:var(--navy);color:var(--gold-lt)}
+.tag-gold{background:var(--gold-bg);color:var(--amber)}
+.tag-jade{background:var(--jade-bg);color:var(--jade)}
+.tag-crimson{background:var(--crimson-bg);color:var(--crimson)}
+.tag-amber{background:var(--amber-bg);color:var(--amber)}
+.tag-gray{background:var(--g100);color:var(--g600)}
+.tag-green{background:#EAF5EC;color:#1A6B35}
+
+/* ─── TABLE ─── */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{
+  background:var(--navy);color:var(--white);
+  font-weight:600;padding:10px 13px;
+  text-align:left;font-size:11px;letter-spacing:0.03em;
+}
+.tbl th:first-child{border-radius:6px 0 0 0}
+.tbl th:last-child{border-radius:0 6px 0 0}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--g100);vertical-align:top;line-height:1.5}
+.tbl tr:nth-child(even) td{background:var(--g50)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl-wrap{border:1px solid var(--g200);border-radius:8px;overflow:hidden}
+
+/* ─── CALLOUT ─── */
+.callout{border-left:3px solid;border-radius:0 7px 7px 0;padding:13px 16px;margin:16px 0;font-size:13.5px;line-height:1.65}
+.callout-gold{border-color:var(--gold);background:var(--gold-bg)}
+.callout-jade{border-color:var(--jade);background:var(--jade-bg)}
+.callout-navy{border-color:var(--navy-lt);background:#EEF2F8}
+.callout-crimson{border-color:var(--crimson);background:var(--crimson-bg)}
+.callout-title{font-weight:700;color:var(--navy);margin-bottom:4px;font-size:13px}
+
+/* ─── ARCH DIAGRAM ─── */
+.arch-flow{display:flex;align-items:stretch;border:1px solid var(--g200);border-radius:8px;overflow:hidden}
+.arch-step{flex:1;padding:16px 14px;border-right:1px solid var(--g200)}
+.arch-step:last-child{border-right:none}
+.arch-step-lbl{font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:5px}
+.arch-step-title{font-size:13px;font-weight:600;margin-bottom:4px}
+.arch-step-desc{font-size:11px;line-height:1.55}
+.arch-s0{background:var(--g50)}.arch-s0 .arch-step-lbl{color:var(--g400)}.arch-s0 .arch-step-title{color:var(--navy)}.arch-s0 .arch-step-desc{color:var(--g600)}
+.arch-s1{background:var(--navy)}.arch-s1 .arch-step-lbl{color:var(--gold-lt)}.arch-s1 .arch-step-title{color:var(--white)}.arch-s1 .arch-step-desc{color:rgba(255,255,255,0.6)}
+.arch-s2{background:var(--navy-mid)}.arch-s2 .arch-step-lbl{color:var(--gold-lt)}.arch-s2 .arch-step-title{color:var(--white)}.arch-s2 .arch-step-desc{color:rgba(255,255,255,0.6)}
+.arch-s3{background:var(--jade)}.arch-s3 .arch-step-lbl{color:rgba(255,255,255,0.6)}.arch-s3 .arch-step-title{color:var(--white)}.arch-s3 .arch-step-desc{color:rgba(255,255,255,0.65)}
+.arch-s4{background:var(--gold-bg);border-left:2px solid var(--gold)}.arch-s4 .arch-step-lbl{color:var(--gold)}.arch-s4 .arch-step-title{color:var(--navy)}.arch-s4 .arch-step-desc{color:var(--g600)}
+
+/* ─── RULE GRID ─── */
+.rule-grid{display:grid;grid-template-columns:repeat(9,1fr);font-size:10px;border:1px solid var(--g200);border-radius:8px;overflow:hidden}
+.rg-cell{padding:7px 4px;text-align:center;border-right:1px solid var(--g200);border-bottom:1px solid var(--g200);font-family:'DM Mono',monospace}
+.rg-cell:nth-child(9n){border-right:none}
+.rg-header{background:var(--navy);color:var(--gold-lt);font-weight:600;font-size:9px}
+.rg-row-header{background:var(--navy-mid);color:var(--white);font-weight:600;font-size:9px}
+.rg-great{background:#EAF5EC;color:#1A6B35;font-weight:700}
+.rg-good{background:#F0FBF0;color:#2E7D32}
+.rg-mid{background:var(--amber-bg);color:var(--amber);font-weight:600}
+.rg-bad{background:var(--crimson-bg);color:var(--crimson);font-weight:700}
+
+/* ─── METRIC CARD ─── */
+.mcard{background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:16px 18px}
+.mcard-val{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--navy);line-height:1}
+.mcard-lbl{font-size:12px;color:var(--g600);margin-top:4px}
+.mcard-sub{font-size:11px;color:var(--jade);font-weight:600;margin-top:4px}
+
+/* ─── TECH STACK ─── */
+.tech-item{background:var(--white);border:1px solid var(--g200);border-radius:7px;padding:13px 15px}
+.tech-layer{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g400);font-family:'DM Mono',monospace;margin-bottom:5px}
+.tech-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.tech-reason{font-size:11.5px;color:var(--g600);line-height:1.5}
+
+/* ─── PERSONA CARD ─── */
+.per-card{background:var(--white);border:1px solid var(--g200);border-radius:8px;overflow:hidden}
+.per-top{padding:16px;border-bottom:1px solid var(--g100)}
+.per-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-bottom:8px}
+.per-name{font-size:14px;font-weight:600;color:var(--navy)}
+.per-role{font-size:11px;color:var(--g400);margin-bottom:8px}
+.per-quote{font-size:12px;font-style:italic;color:var(--g600);line-height:1.5;border-left:2px solid var(--g200);padding-left:9px;margin-bottom:8px}
+.per-row{padding:10px 16px;font-size:12px;border-top:1px solid var(--g100)}
+.per-label{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g400);font-family:'DM Mono',monospace;margin-bottom:3px}
+
+/* ─── RISK TABLE ─── */
+.risk-item{background:var(--white);border:1px solid var(--g200);border-radius:7px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.risk-sev{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--white);flex-shrink:0;font-family:'DM Mono',monospace}
+.risk-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.risk-desc{font-size:12px;color:var(--g600);line-height:1.55;margin-bottom:5px}
+.risk-mit{font-size:12px;color:var(--jade);font-weight:500}
+
+/* ─── SPRINT CARD ─── */
+.sprint-card{background:var(--white);border:1px solid var(--g200);border-radius:8px;overflow:hidden}
+.sprint-header{padding:12px 16px;border-bottom:1px solid var(--g100)}
+.sprint-wk{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g400);font-family:'DM Mono',monospace;margin-bottom:3px}
+.sprint-name{font-size:14px;font-weight:600;color:var(--navy)}
+.sprint-body{padding:12px 16px}
+.sprint-item{font-size:12px;color:var(--g600);padding:5px 0;border-bottom:1px solid var(--g100);display:flex;gap:8px;align-items:flex-start}
+.sprint-item:last-child{border-bottom:none}
+.sprint-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px}
+
+/* ─── SCOPE ─── */
+.scope-box{border-radius:8px;padding:16px 18px}
+.scope-in{background:var(--jade-bg);border:1px solid rgba(26,107,90,0.3)}
+.scope-out{background:var(--crimson-bg);border:1px solid rgba(160,39,42,0.25)}
+.scope-label{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px}
+.scope-in .scope-label{color:var(--jade)}
+.scope-out .scope-label{color:var(--crimson)}
+.scope-li{font-size:13px;line-height:1.6;padding:3px 0;display:flex;gap:8px}
+.scope-in .scope-li::before{content:'✓';color:var(--jade);font-weight:700}
+.scope-out .scope-li::before{content:'✗';color:var(--crimson);font-weight:700}
+
+/* ─── HYPOTHESIS ─── */
+.hypothesis{background:var(--white);border:1px solid var(--g200);border-radius:7px;padding:14px 16px;margin-bottom:10px}
+.hyp-num{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px}
+.hyp-statement{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.hyp-test{font-size:12px;color:var(--g600);line-height:1.55}
+
+/* ─── UX FLOW ─── */
+.ux-step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--g100)}
+.ux-step:last-child{border-bottom:none}
+.ux-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--gold-lt);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:'DM Mono',monospace}
+.ux-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.ux-desc{font-size:12.5px;color:var(--g600);line-height:1.55}
+.ux-ac{font-size:11.5px;color:var(--jade);font-weight:500;margin-top:4px}
+
+/* ─── WIREFRAME UI MOCKUP STYLES ─── */
+.wireframe-section{margin-bottom:40px}
+.wireframe-title{
+  font-family:'Source Serif 4',serif;font-size:18px;font-weight:600;
+  color:var(--navy);margin-bottom:14px;display:flex;align-items:center;
+  gap:10px;flex-wrap:wrap;
+}
+.wireframe-badge{
+  font-size:10px;font-weight:700;letter-spacing:0.06em;
+  background:var(--gold-bg);color:var(--amber);
+  padding:3px 10px;border-radius:99px;
+  font-family:'DM Mono',monospace;
+}
+.wf-container{
+  border:1px solid var(--g200);border-radius:10px;overflow:hidden;
+  background:var(--white);box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.wf-chrome{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;background:var(--g50);border-bottom:1px solid var(--g200);
+}
+.wf-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.wf-url-bar{
+  flex:1;margin-left:8px;padding:4px 12px;
+  background:var(--white);border:1px solid var(--g200);border-radius:5px;
+  font-family:'DM Mono',monospace;font-size:11px;color:var(--g400);
+}
+.wf-body{padding:20px}
+.wf-label{
+  font-size:11px;font-weight:700;color:var(--g400);
+  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;
+}
+
+/* Skeleton placeholders */
+.sk{background:var(--g100);border-radius:6px;min-height:20px}
+.sk-title{height:22px}
+.sk-text{height:14px;margin-bottom:6px}
+
+/* Annotation callouts */
+.annotation{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:10px 14px;margin-top:8px;
+  background:var(--gold-bg);border-radius:6px;border-left:3px solid var(--gold);
+  font-size:12.5px;color:var(--g600);line-height:1.6;
+}
+.annotation-num{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  background:var(--gold);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;font-family:'DM Mono',monospace;
+}
+
+/* Chat bubbles */
+.chat-bubble{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6;max-width:85%}
+.bubble-user{
+  background:var(--navy);color:var(--white);
+  align-self:flex-end;border-bottom-right-radius:4px;
+  margin-left:auto;
+}
+.bubble-ai{
+  background:var(--g50);color:var(--g800);
+  border-bottom-left-radius:4px;
+  border:1px solid var(--g200);
+}
+
+/* Comparison cards */
+.comp-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.comp-card{
+  border:1px solid var(--g200);border-radius:10px;overflow:hidden;
+  background:var(--white);display:flex;flex-direction:column;
+}
+.comp-card.top-pick{border:2px solid var(--jade);position:relative}
+.top-pick-banner{
+  background:var(--jade);color:var(--white);
+  text-align:center;padding:4px 8px;
+  font-size:11px;font-weight:700;letter-spacing:0.04em;
+}
+.comp-card-head{padding:14px}
+.comp-card-unit{font-size:16px;font-weight:700;color:var(--navy)}
+.comp-card-proj{font-size:11px;color:var(--g400);margin-top:2px}
+.comp-score-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.comp-score-badge{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;flex-shrink:0;
+}
+.score-green{background:#EAF5EC;color:#1E7A35;border:2px solid #1E7A35}
+.score-yellow{background:var(--amber-bg);color:var(--amber);border:2px solid var(--amber)}
+.score-red{background:var(--crimson-bg);color:var(--crimson);border:2px solid var(--crimson)}
+.comp-score-label{font-size:11px;color:var(--g600);line-height:1.3}
+.comp-card-body{padding:0 14px 14px;flex:1}
+.comp-row{
+  display:flex;justify-content:space-between;
+  padding:5px 0;border-bottom:1px solid var(--g100);font-size:12px;
+}
+.comp-row:last-of-type{border-bottom:none}
+.comp-row-label{color:var(--g400)}
+.comp-row-val{font-weight:600;color:var(--g800)}
+.comp-reason{
+  font-size:12px;color:var(--g600);line-height:1.5;
+  margin-top:8px;padding-top:8px;border-top:1px solid var(--g100);
+}
+.comp-card-footer{
+  padding:12px 14px;border-top:1px solid var(--g100);
+  display:flex;gap:8px;
+}
+.comp-btn{
+  flex:1;padding:7px;border-radius:6px;font-size:12px;
+  font-weight:600;cursor:pointer;text-align:center;border:none;
+}
+.comp-btn-primary{background:var(--navy);color:var(--white)}
+.comp-btn-secondary{background:transparent;color:var(--navy);border:1px solid var(--g200)}
+
+@media(max-width:800px){
+  .comp-card-grid{grid-template-columns:1fr}
+}
+
+/* ─── SCROLL TO TOP ─── */
+.back-top{
+  position:fixed;bottom:24px;right:24px;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--navy);color:var(--gold-lt);
+  border:none;cursor:pointer;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  transition:0.2s;z-index:100;
+}
+.back-top:hover{background:var(--navy-mid);transform:translateY(-2px)}
+
+/* ─── PRINT ─── */
+@media print{
+  .topbar,.sidenav,.back-top{display:none!important}
+  .layout{display:block}
+  .tab-pane,.section{display:block!important}
+  .content{padding:20px}
+}
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--g200);border-radius:99px}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOPBAR ═══ -->
+<div class="topbar">
+  <div class="tb-brand">
+    <div class="tb-compass">
+      <svg viewBox="0 0 24 24"><path d="M12 2L9 9L2 12L9 15L12 22L15 15L22 12L15 9Z"/></svg>
+    </div>
+    <div class="tb-name">V-FENG <span>Compass</span></div>
+    <span class="tb-badge">Gate G1</span>
+    <span class="tb-badge" style="background:rgba(160,39,42,0.2);border-color:rgba(160,39,42,0.4);color:#E57373">07/06/2026</span>
+  </div>
+  <div class="top-tabs">
+    <div class="top-tab active" onclick="switchTab('brief')">📄 Brief</div>
+    <div class="top-tab" onclick="switchTab('prd')">📋 PRD</div>
+    <div class="top-tab" onclick="switchTab('wireframe')">🖼 Wireframe</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB A — BRIEF
+═══════════════════════════════════════════════════════════ -->
+<div class="tab-pane active" id="tab-brief">
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sn-group">
+        <div class="sn-group-label">Product Brief</div>
+        <a class="sn-item active" onclick="showSec(this,'b-overview')"><span class="sn-num">01</span><span class="sn-dot"></span>Product Statement</a>
+        <a class="sn-item" onclick="showSec(this,'b-problem')"><span class="sn-num">02</span><span class="sn-dot"></span>Bài toán & Personas</a>
+        <a class="sn-item" onclick="showSec(this,'b-arch')"><span class="sn-num">03</span><span class="sn-dot"></span>Kiến trúc AI</a>
+        <a class="sn-item" onclick="showSec(this,'b-features')"><span class="sn-num">04</span><span class="sn-dot"></span>MVP Features</a>
+        <a class="sn-item" onclick="showSec(this,'b-scope')"><span class="sn-num">05</span><span class="sn-dot"></span>Scope & Dataset</a>
+        <a class="sn-item" onclick="showSec(this,'b-roadmap')"><span class="sn-num">06</span><span class="sn-dot"></span>Lộ trình & Metrics</a>
+        <a class="sn-item" onclick="showSec(this,'b-risk')"><span class="sn-num">07</span><span class="sn-dot"></span>Rủi ro & UVP</a>
+      </div>
+    </nav>
+    <main class="content">
+
+      <!-- B-01 OVERVIEW -->
+      <div id="b-overview" class="section active">
+        <div class="sec-header">
+          <div class="sec-eyebrow">Product Brief · Gate G1</div>
+          <h1 class="sec-title">V-FENG Compass</h1>
+          <p class="sec-desc">AI Feng Shui Assistant · Real Estate Decision Support<br>Mã đề tài: A120K-154 · Version v1.0</p>
+        </div>
+
+        <div class="card card-navy" style="margin-bottom:24px;padding:24px 28px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-lt);font-family:'DM Mono',monospace;margin-bottom:10px">Product Statement</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;color:var(--white)">
+            V-FENG Compass là <span style="color:var(--gold-lt);font-weight:600">web app AI hỗ trợ người mua và sales bất động sản</span> đánh giá nhanh mức độ phù hợp phong thủy của căn hộ — dựa trên cung mệnh người dùng, hướng căn hộ và <span style="color:var(--gold-lt);font-weight:600">bộ rule Bát trạch kiểm chứng 64 trường hợp</span>.<br><br>
+            MVP tập trung vào scoring, giải thích bằng AI, so sánh căn hộ và tạo lead tư vấn. Không phải chatbot phong thủy chung chung — đây là <span style="color:var(--gold-lt);font-weight:600">decision-support tool</span> gắn với dữ liệu căn hộ có cấu trúc.
+          </div>
+        </div>
+
+        <div class="sub-title" style="margin-top:12px">Tại sao không chỉ là "hỏi ChatGPT"?</div>
+        <div class="callout callout-jade">
+          <div class="callout-title">⚡ Differentiator chính</div>
+          <strong>V-FENG Compass ≠ chatbot phong thủy chung chung.</strong> Hệ thống kết hợp duy nhất:
+          <strong>Rule Engine Bát trạch kiểm chứng 64 case</strong> (nhất quán, không sai) +
+          <strong>dữ liệu căn hộ có cấu trúc 160 căn</strong> (gắn với thực tế) +
+          <strong>RAG tài liệu tham chiếu</strong> (chiều sâu có nguồn) +
+          <strong>Claude LLM</strong> (ngôn ngữ tự nhiên). ChatGPT hay app thông thường không có đủ 4 yếu tố này cùng lúc.
+        </div>
+      </div>
+
+      <!-- B-02 PROBLEM & PERSONAS -->
+      <div id="b-problem" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">02 · Bài toán & Personas</div>
+          <h1 class="sec-title">Người dùng & Pain Points</h1>
+        </div>
+        <div class="sub-title" style="margin-top:0">Bài toán thị trường</div>
+        <div class="g3" style="margin-bottom:24px">
+          <div class="mcard">
+            <div class="mcard-val">70%</div>
+            <div class="mcard-lbl">Người mua quan tâm phong thủy</div>
+            <div class="mcard-sub">Nhưng thông tin rải rác, mâu thuẫn</div>
+          </div>
+          <div class="mcard">
+            <div class="mcard-val">3–10M</div>
+            <div class="mcard-lbl">Chi phí tư vấn thầy/lần</div>
+            <div class="mcard-sub">Chuyên gia khan hiếm, không scalable</div>
+          </div>
+          <div class="mcard">
+            <div class="mcard-val">0</div>
+            <div class="mcard-lbl">Sản phẩm AI có rule engine BĐS</div>
+            <div class="mcard-sub">Khoảng trống thị trường V-FENG nhắm đến</div>
+          </div>
+        </div>
+
+        <div class="sub-title">Personas</div>
+        <div class="g3">
+          <div class="per-card">
+            <div class="per-top">
+              <div class="per-av" style="background:#EEF2FF;color:#3730A3">NL</div>
+              <div class="per-name">Nguyễn Thị Linh, 32t</div>
+              <div class="per-role">Người mua lần đầu · Hà Nội</div>
+              <div class="per-quote">"Sợ mua sai hướng, thông tin đâu cũng mâu thuẫn."</div>
+            </div>
+            <div class="per-row">
+              <div class="per-label">Pain</div>Không biết căn nào hợp mệnh
+            </div>
+            <div class="per-row">
+              <div class="per-label">Mong muốn</div>Giải thích rõ lý do, nhất quán
+            </div>
+          </div>
+          <div class="per-card">
+            <div class="per-top">
+              <div class="per-av" style="background:#FDF8EE;color:#92610A">TM</div>
+              <div class="per-name">Trần Quốc Minh, 43t</div>
+              <div class="per-role">Nhà đầu tư BĐS · TP.HCM</div>
+              <div class="per-quote">"Tra phong thủy thủ công mỗi lần mất quá nhiều thời gian."</div>
+            </div>
+            <div class="per-row">
+              <div class="per-label">Pain</div>So sánh thủ công, không scalable
+            </div>
+            <div class="per-row">
+              <div class="per-label">Mong muốn</div>Tóm tắt nhanh, so sánh nhiều căn
+            </div>
+          </div>
+          <div class="per-card">
+            <div class="per-top">
+              <div class="per-av" style="background:#E8F4F0;color:#1A6B5A">PH</div>
+              <div class="per-name">Phạm Thu Hoa, 28t</div>
+              <div class="per-role">Sales agent BĐS · Đà Nẵng</div>
+              <div class="per-quote">"Khách hỏi phong thủy là tôi lúng túng ngay."</div>
+            </div>
+            <div class="per-row">
+              <div class="per-label">Pain</div>Mất momentum · thiếu tool
+            </div>
+            <div class="per-row">
+              <div class="per-label">Mong muốn</div>Dùng phone · response &lt;5s
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- B-03 AI ARCHITECTURE -->
+      <div id="b-arch" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">03 · Kiến trúc AI</div>
+          <h1 class="sec-title">Rule Engine là Source of Truth</h1>
+        </div>
+        <div class="arch-flow">
+          <div class="arch-step arch-s0">
+            <div class="arch-step-lbl">Input</div>
+            <div class="arch-step-title">User Profile + Căn hộ</div>
+            <div class="arch-step-desc">Năm sinh, giới tính, hướng cửa chính, hướng ban công, tầng</div>
+          </div>
+          <div class="arch-step arch-s1">
+            <div class="arch-step-lbl">Layer 1 · Source of Truth</div>
+            <div class="arch-step-title">Rule Engine Bát trạch</div>
+            <div class="arch-step-desc">8×8 lookup · 64 case · điểm 1–10 · &lt;50ms · 100% unit tested</div>
+          </div>
+          <div class="arch-step arch-s2">
+            <div class="arch-step-lbl">Layer 2 · Explanation</div>
+            <div class="arch-step-title">RAG Lookup</div>
+            <div class="arch-step-desc">pgvector · top-5 chunks · tài liệu có metadata nguồn · &lt;200ms</div>
+          </div>
+          <div class="arch-step arch-s3">
+            <div class="arch-step-lbl">Layer 3 · Presentation</div>
+            <div class="arch-step-title">Claude LLM</div>
+            <div class="arch-step-desc">Tổng hợp · streaming · p95 &lt;4s · không override rule</div>
+          </div>
+          <div class="arch-step arch-s4">
+            <div class="arch-step-lbl">Output</div>
+            <div class="arch-step-title">Feng Score + Tư vấn 3 phần</div>
+            <div class="arch-step-desc">Tóm tắt 1 câu → Chi tiết → Lưu ý + Disclaimer</div>
+          </div>
+        </div>
+        <div class="callout callout-crimson" style="margin-top:16px">
+          <div class="callout-title">⚠ Nguyên tắc quan trọng</div>
+          AI không tự phán phong thủy. AI chỉ diễn giải kết quả từ rule engine + tài liệu tham chiếu. Nếu RAG mâu thuẫn rule → hệ thống ưu tiên rule và báo "mức độ chưa chắc chắn". Disclaimer "tham khảo theo quan niệm truyền thống" hiển thị mọi response.
+        </div>
+      </div>
+
+      <!-- B-04 MVP FEATURES -->
+      <div id="b-features" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">04 · MVP Features</div>
+          <h1 class="sec-title">Tính năng & Acceptance Criteria</h1>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <tr><th style="width:30%">Tính năng</th><th style="width:10%">Sprint</th><th style="width:10%">Effort</th><th>Acceptance Criteria chính</th></tr>
+            <tr><td><strong>Auth + Profile Wizard</strong></td><td><span class="tag tag-crimson">W1</span></td><td><span class="tag tag-amber">M</span></td><td>Email/Google · Wizard 2 bước · Tính cung phi real-time</td></tr>
+            <tr><td><strong>Rule Engine Bát trạch</strong></td><td><span class="tag tag-crimson">W1</span></td><td><span class="tag tag-green">S</span></td><td>64 case đầy đủ · &lt;50ms · 100% unit test · Source of truth</td></tr>
+            <tr><td><strong>Feng Score Badge + Listing</strong></td><td><span class="tag tag-crimson">W1</span></td><td><span class="tag tag-green">S</span></td><td>Badge xanh/vàng/đỏ hiện ngay trên card căn · Aha moment</td></tr>
+            <tr><td><strong>AI Chat (streaming)</strong></td><td><span class="tag tag-amber">W2</span></td><td><span class="tag tag-amber">M</span></td><td>Response 3 phần · Streaming · p95 &lt;4s · Rule làm context</td></tr>
+            <tr><td><strong>RAG Pipeline</strong></td><td><span class="tag tag-amber">W2</span></td><td><span class="tag tag-amber">M</span></td><td>PDF → chunk → embed → pgvector · Benchmark queries tested</td></tr>
+            <tr><td><strong>AI Comparison Card</strong></td><td><span class="tag tag-amber">W2</span></td><td><span class="tag tag-green">S</span></td><td>So sánh 2–3 căn · Top-pick highlighted · Nút lead</td></tr>
+            <tr><td><strong>Lead Capture + Dashboard</strong></td><td><span class="tag tag-jade">W3</span></td><td><span class="tag tag-amber">M</span></td><td>Lead + full context · Email &lt;2 phút · Sales view</td></tr>
+            <tr><td><strong>Mobile Responsive + PWA</strong></td><td><span class="tag tag-jade">W3</span></td><td><span class="tag tag-green">S</span></td><td>375px+ · Lighthouse mobile ≥80 · Add to homescreen</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- B-05 SCOPE & DATASET -->
+      <div id="b-scope" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">05 · Scope & Dataset</div>
+          <h1 class="sec-title">Scope Control & Dataset Design</h1>
+        </div>
+        <div class="g2" style="margin-bottom:28px">
+          <div class="scope-box scope-in">
+            <div class="scope-label">In-Scope MVP</div>
+            <div class="scope-li">Web app, nhập hồ sơ người dùng</div>
+            <div class="scope-li">Tính cung phi / mệnh cục</div>
+            <div class="scope-li">Danh sách căn hộ + Feng Score Badge</div>
+            <div class="scope-li">AI giải thích lý do từ rule</div>
+            <div class="scope-li">So sánh 2–3 căn hộ</div>
+            <div class="scope-li">RAG từ tài liệu kiểm soát</div>
+            <div class="scope-li">Lead capture cơ bản</div>
+          </div>
+          <div class="scope-box scope-out">
+            <div class="scope-label">Out-of-Scope v1</div>
+            <div class="scope-li">App mobile native</div>
+            <div class="scope-li">Marketplace giao dịch thật</div>
+            <div class="scope-li">Thanh toán / đặt cọc thật</div>
+            <div class="scope-li">Scraping dữ liệu bừa bãi</div>
+            <div class="scope-li">Chụp ảnh / bản vẽ AI phân tích</div>
+            <div class="scope-li">Tự host LLM</div>
+            <div class="scope-li">Tư vấn nội thất / tổng thể nhà</div>
+          </div>
+        </div>
+
+        <div class="sub-title">Dataset Design</div>
+        <div class="g2">
+          <div class="card card-sm">
+            <div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:8px">CẤU TRÚC DỮ LIỆU MẪU</div>
+            <div style="font-size:13px;color:var(--g600);line-height:1.8">
+              · <strong>10</strong> dự án chung cư giả lập<br>
+              · <strong>20</strong> block/tòa (2/dự án)<br>
+              · <strong>160</strong> căn hộ (8 hướng × block)<br>
+              · <strong>64</strong> rule (8 cung × 8 hướng)<br>
+              · <strong>16–32</strong> user profile test
+            </div>
+          </div>
+          <div class="card card-sm">
+            <div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:8px">SCHEMA RULE TABLE</div>
+            <div style="font-size:13px;color:var(--g600);line-height:1.8">
+              · <code>user_gua</code> — Cung mệnh/cung phi<br>
+              · <code>apartment_direction</code> — Hướng căn hộ<br>
+              · <code>direction_group</code> — Đông tứ / Tây tứ<br>
+              · <code>star_name</code> — Tên sao phong thủy<br>
+              · <code>score</code> (1–10) · <code>explanation</code><br>
+              · <code>recommendation</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- B-06 ROADMAP & METRICS -->
+      <div id="b-roadmap" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">06 · Lộ trình & Metrics</div>
+          <h1 class="sec-title">Lộ trình 4 tuần & Chỉ số thành công</h1>
+        </div>
+        <div class="g4" style="margin-bottom:28px">
+          <div class="sprint-card">
+            <div class="sprint-header"><div class="sprint-wk">Tuần 1</div><div class="sprint-name">Foundation</div></div>
+            <div class="sprint-body">
+              <div class="sprint-item"><div class="sprint-dot"></div>Auth + Wizard</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Rule Engine 64 case</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Dataset 160 căn</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Deploy skeleton</div>
+            </div>
+          </div>
+          <div class="sprint-card">
+            <div class="sprint-header"><div class="sprint-wk">Tuần 2</div><div class="sprint-name">AI Core</div></div>
+            <div class="sprint-body">
+              <div class="sprint-item"><div class="sprint-dot"></div>RAG pipeline</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Claude chat</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Feng badge</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Comparison card</div>
+            </div>
+          </div>
+          <div class="sprint-card">
+            <div class="sprint-header"><div class="sprint-wk">Tuần 3</div><div class="sprint-name">Business</div></div>
+            <div class="sprint-body">
+              <div class="sprint-item"><div class="sprint-dot"></div>Lead capture</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Sales dashboard</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Email notify</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>PWA + mobile</div>
+            </div>
+          </div>
+          <div class="sprint-card">
+            <div class="sprint-header"><div class="sprint-wk">Tuần 4</div><div class="sprint-name">Polish + Demo</div></div>
+            <div class="sprint-body">
+              <div class="sprint-item"><div class="sprint-dot"></div>Edge cases</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>Load testing</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>UI polish</div>
+              <div class="sprint-item"><div class="sprint-dot"></div>G2 demo prep</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-title">Chỉ số thành công</div>
+        <div class="g3">
+          <div class="mcard"><div class="mcard-val">≥70%</div><div class="mcard-lbl">Chat session completion</div><div class="mcard-sub">Core engagement</div></div>
+          <div class="mcard"><div class="mcard-val">≥80%</div><div class="mcard-lbl">Wizard completion rate</div><div class="mcard-sub">Onboarding funnel</div></div>
+          <div class="mcard"><div class="mcard-val">≥20%</div><div class="mcard-lbl">Đặt lịch sau chat</div><div class="mcard-sub">Intent signal</div></div>
+          <div class="mcard"><div class="mcard-val">&lt;4s</div><div class="mcard-lbl">AI response p95</div><div class="mcard-sub">UX quality</div></div>
+          <div class="mcard"><div class="mcard-val">≥30</div><div class="mcard-lbl">Lead/tháng</div><div class="mcard-sub">Business value</div></div>
+          <div class="mcard"><div class="mcard-val">≥99%</div><div class="mcard-lbl">Uptime</div><div class="mcard-sub">Reliability</div></div>
+        </div>
+      </div>
+
+      <!-- B-07 RISK & UVP -->
+      <div id="b-risk" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">07 · Rủi ro & UVP</div>
+          <h1 class="sec-title">Rủi ro chính & Unique Value</h1>
+        </div>
+        <div class="g2" style="margin-bottom:28px">
+          <div class="risk-item"><div class="risk-sev" style="background:#E57373">H</div><div style="flex:1"><div class="risk-title">AI trả lời sai phong thủy</div><div class="risk-desc">Nếu AI hallucinate hoặc rule bị sai → mất tin tưởng hoàn toàn.</div><div class="risk-mit">✓ Rule engine + tài liệu nguồn + disclaimer bắt buộc mỗi response</div></div></div>
+          <div class="risk-item"><div class="risk-sev" style="background:#FFB74D">M</div><div style="flex:1"><div class="risk-title">RAG mâu thuẫn rule</div><div class="risk-desc">Tài liệu RAG có thể nói ngược với rule engine nếu nguồn không thống nhất.</div><div class="risk-mit">✓ Rule engine luôn là source of truth, RAG chỉ bổ sung giải thích</div></div></div>
+          <div class="risk-item"><div class="risk-sev" style="background:#4DB6AC">L</div><div style="flex:1"><div class="risk-title">Latency AI vượt 4s</div><div class="risk-desc">Pipeline rule+RAG+LLM có thể kéo dài nếu không optimize.</div><div class="risk-mit">✓ Rule precompute &lt;50ms, RAG &lt;200ms, streaming UX che latency</div></div></div>
+          <div class="risk-item"><div class="risk-sev" style="background:#9575CD">M</div><div style="flex:1"><div class="risk-title">Người dùng không có evidence</div><div class="risk-desc">Không có bằng chứng người dùng thực sự cần sản phẩm này.</div><div class="risk-mit">✓ Survey 10–15 câu với 3 giả định: quan tâm PT, khó khăn, sẵn dùng AI</div></div></div>
+        </div>
+
+        <div class="callout callout-jade">
+          <div class="callout-title">🏛 Unique Value Proposition</div>
+          <strong>V-FENG Compass ≠ chatbot phong thủy chung chung.</strong> Hệ thống kết hợp duy nhất:
+          <strong>Rule Engine Bát trạch kiểm chứng 64 case</strong> (nhất quán, không sai) +
+          <strong>dữ liệu căn hộ có cấu trúc 160 căn</strong> (gắn với thực tế) +
+          <strong>RAG tài liệu tham chiếu</strong> (chiều sâu có nguồn) +
+          <strong>Claude LLM</strong> (ngôn ngữ tự nhiên). ChatGPT hay app thông thường không có đủ 4 yếu tố này cùng lúc, và đặc biệt không có bộ rule kiểm chứng làm <strong>source of truth</strong>.
+        </div>
+
+        <div style="margin-top:20px;padding:12px 16px;background:var(--g100);border-radius:8px;font-size:12px;color:var(--g600);font-family:'DM Mono',monospace;text-align:center">
+          V-FENG Compass · Product Brief v1.0 · Gate G1 · 07/06/2026<br>
+          Claude · RAG · FastAPI · Next.js · Supabase · Vercel + Railway
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB B — PRD
+═══════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-prd">
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sn-group">
+        <div class="sn-group-label">Overview</div>
+        <a class="sn-item active" onclick="showSec(this,'p-vision')"><span class="sn-num">01</span><span class="sn-dot"></span>Vision & Positioning</a>
+        <a class="sn-item" onclick="showSec(this,'p-problem')"><span class="sn-num">02</span><span class="sn-dot"></span>Problem & Personas</a>
+      </div>
+      <div class="sn-group">
+        <div class="sn-group-label">Architecture</div>
+        <a class="sn-item" onclick="showSec(this,'p-arch')"><span class="sn-num">03</span><span class="sn-dot"></span>Kiến trúc AI 3 Layer</a>
+        <a class="sn-item" onclick="showSec(this,'p-rule')"><span class="sn-num">04</span><span class="sn-dot"></span>Rule Engine Bát trạch</a>
+        <a class="sn-item" onclick="showSec(this,'p-rag')"><span class="sn-num">05</span><span class="sn-dot"></span>RAG & LLM Layer</a>
+      </div>
+      <div class="sn-group">
+        <div class="sn-group-label">Product</div>
+        <a class="sn-item" onclick="showSec(this,'p-scope')"><span class="sn-num">06</span><span class="sn-dot"></span>Scope · In/Out</a>
+        <a class="sn-item" onclick="showSec(this,'p-features')"><span class="sn-num">07</span><span class="sn-dot"></span>MVP Features & AC</a>
+        <a class="sn-item" onclick="showSec(this,'p-ux')"><span class="sn-num">08</span><span class="sn-dot"></span>UX Flow & Aha Moment</a>
+      </div>
+      <div class="sn-group">
+        <div class="sn-group-label">Data & Evidence</div>
+        <a class="sn-item" onclick="showSec(this,'p-dataset')"><span class="sn-num">09</span><span class="sn-dot"></span>Dataset Design</a>
+        <a class="sn-item" onclick="showSec(this,'p-survey')"><span class="sn-num">10</span><span class="sn-dot"></span>Survey & Evidence</a>
+      </div>
+      <div class="sn-group">
+        <div class="sn-group-label">Execution</div>
+        <a class="sn-item" onclick="showSec(this,'p-tech')"><span class="sn-num">11</span><span class="sn-dot"></span>Tech Stack</a>
+        <a class="sn-item" onclick="showSec(this,'p-sprint')"><span class="sn-num">12</span><span class="sn-dot"></span>Sprint Plan 4 tuần</a>
+        <a class="sn-item" onclick="showSec(this,'p-metrics')"><span class="sn-num">13</span><span class="sn-dot"></span>Metrics & Success</a>
+        <a class="sn-item" onclick="showSec(this,'p-risk')"><span class="sn-num">14</span><span class="sn-dot"></span>Risk & Mitigation</a>
+      </div>
+    </nav>
+    <main class="content">
+
+      <!-- P-01 VISION -->
+      <div id="p-vision" class="section active">
+        <div class="sec-header">
+          <div class="sec-eyebrow">01 · Vision & Positioning</div>
+          <h1 class="sec-title">V-FENG Compass</h1>
+          <p class="sec-desc">AI Feng Shui Assistant cho bất động sản/căn hộ. Không phải chatbot phong thủy chung chung — đây là decision-support tool gắn với dữ liệu căn hộ có cấu trúc.</p>
+        </div>
+        <div class="card card-navy" style="margin-bottom:24px;padding:24px 28px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-lt);font-family:'DM Mono',monospace;margin-bottom:10px">Product Positioning Statement</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;color:var(--white)">
+            V-FENG Compass là <span style="color:var(--gold-lt);font-weight:600">web app AI hỗ trợ người mua và sales bất động sản</span> đánh giá nhanh mức độ phù hợp phong thủy của từng căn hộ cụ thể — dựa trên cung mệnh người dùng, hướng căn hộ và <span style="color:var(--gold-lt);font-weight:600">bộ rule Bát trạch kiểm chứng 64 trường hợp</span>. MVP tập trung vào scoring, giải thích bằng AI, so sánh căn hộ và tạo lead tư vấn; các tính năng nâng cao như phân tích ảnh/bản vẽ sẽ được xem là post-MVP.
+          </div>
+        </div>
+        <div class="sub-title">Tại sao không phải là "hỏi ChatGPT bình thường"?</div>
+        <div class="callout callout-jade" style="margin-bottom:20px">
+          <div class="callout-title">⚡ Differentiator chính</div>
+          V-FENG Compass kết hợp duy nhất: <strong>Rule Engine Bát trạch kiểm chứng</strong> (nhất quán, không sai) + <strong>dữ liệu căn hộ có cấu trúc</strong> (160 căn, 8 hướng) + <strong>RAG tài liệu tham chiếu</strong> (có metadata nguồn) + <strong>Claude LLM</strong> (ngôn ngữ tự nhiên). ChatGPT hay app thông thường không có bộ rule kiểm chứng làm source of truth và không gắn với dữ liệu căn hộ thực tế.
+        </div>
+        <div class="g3">
+          <div class="card card-sm"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:8px">PROBLEM</div><div style="font-size:13.5px;color:var(--g600);line-height:1.6">Người mua nhà quan tâm phong thủy nhưng thông tin rải rác, mâu thuẫn, không gắn với căn hộ cụ thể. Chuyên gia khan hiếm, đắt. Sales thiếu tool.</div></div>
+          <div class="card card-sm"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:8px">SOLUTION</div><div style="font-size:13.5px;color:var(--g600);line-height:1.6">AI tư vấn 24/7, nhất quán, cá nhân hóa theo mệnh, gắn với dữ liệu căn hộ thực tế. Rule Engine là source of truth; RAG giải thích; LLM trình bày.</div></div>
+          <div class="card card-sm"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:8px">UNIQUE VALUE</div><div style="font-size:13.5px;color:var(--g600);line-height:1.6">Decision-support tool, không phải oracle. Mọi kết quả đều có thể kiểm chứng bằng rule. Disclaimer bắt buộc "tham khảo theo quan niệm truyền thống".</div></div>
+        </div>
+        <div class="sub-title" style="margin-top:28px">Nguyên tắc thiết kế sản phẩm</div>
+        <div class="g2">
+          <div>
+            <div class="callout callout-gold" style="margin-bottom:12px"><div class="callout-title">P1 — Rule Engine là source of truth</div>AI không được tự "phán" phong thủy. Mọi kết quả phải xuất phát từ bảng rule 64 trường hợp đã được kiểm chứng với tài liệu tham chiếu.</div>
+            <div class="callout callout-jade" style="margin-bottom:12px"><div class="callout-title">P2 — RAG bổ sung, không override rule</div>Nếu tài liệu RAG mâu thuẫn rule engine, hệ thống phải ưu tiên rule và báo "mức độ chưa chắc chắn" thay vì tự ý kết hợp.</div>
+          </div>
+          <div>
+            <div class="callout callout-navy" style="margin-bottom:12px"><div class="callout-title">P3 — Aha moment sớm nhất có thể</div>Người dùng vừa vào danh sách căn hộ đã thấy Feng Score Badge — không cần chat mới thấy giá trị. Score là entry point, chat là depth.</div>
+            <div class="callout callout-crimson"><div class="callout-title">P4 — Kiểm soát scope nghiêm ngặt</div>v1.0 chỉ làm những gì đã cam kết. Image analysis, marketplace, transaction thật là post-MVP. Scope creep = chất lượng giảm, demo fail.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P-02 PROBLEM & PERSONAS -->
+      <div id="p-problem" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">02 · Problem & Personas</div>
+          <h1 class="sec-title">Bài toán & Người dùng mục tiêu</h1>
+          <p class="sec-desc">Phong thủy là yếu tố quan trọng trong quyết định mua nhà của người Việt — nhưng market hiện tại chưa có sản phẩm đáp ứng đủ 3 tiêu chí: nhất quán, cá nhân hóa, và gắn với dữ liệu thực.</p>
+        </div>
+        <div class="sub-title" style="margin-top:0">Market Context</div>
+        <div class="g3" style="margin-bottom:24px">
+          <div class="mcard"><div class="mcard-val">&gt;70%</div><div class="mcard-lbl">Người mua nhà tại Việt Nam coi phong thủy là yếu tố quan trọng</div><div class="mcard-sub">Nguồn: Khảo sát thị trường (giả thuyết cần kiểm chứng)</div></div>
+          <div class="mcard"><div class="mcard-val">3–10M</div><div class="mcard-lbl">VND/lần tư vấn thầy phong thủy chuyên nghiệp</div><div class="mcard-sub">Rào cản kinh tế cho người mua phổ thông</div></div>
+          <div class="mcard"><div class="mcard-val">0</div><div class="mcard-lbl">Sản phẩm AI có Rule Engine BĐS + dữ liệu căn hộ có cấu trúc</div><div class="mcard-sub">Khoảng trống thị trường V-FENG nhắm đến</div></div>
+        </div>
+        <div class="sub-title">Problem Statement chi tiết</div>
+        <div class="tbl-wrap" style="margin-bottom:24px">
+          <table class="tbl">
+            <tr><th style="width:25%">Pain Point</th><th style="width:25%">Ai bị ảnh hưởng</th><th style="width:25%">Nguyên nhân gốc</th><th>Hệ quả</th></tr>
+            <tr><td><strong>Thông tin phong thủy rải rác, mâu thuẫn</strong></td><td>Người mua nhà</td><td>Không có hệ thống hóa, mỗi nguồn một kiểu</td><td>Confusion, mua theo cảm tính, lo lắng sau mua</td></tr>
+            <tr><td><strong>Chuyên gia khan hiếm, phí cao</strong></td><td>Người mua phổ thông</td><td>Thầy phong thủy là bottleneck, không scalable</td><td>Bỏ qua phong thủy hoặc tự đoán mò</td></tr>
+            <tr><td><strong>Sales mất momentum khi bị hỏi</strong></td><td>Sales agent BĐS</td><td>Không được training phong thủy, không có tool</td><td>Deal chậm, mất khách, giảm conversion</td></tr>
+            <tr><td><strong>Không gắn được với căn hộ cụ thể</strong></td><td>Cả ba nhóm trên</td><td>ChatGPT cho câu trả lời chung, không biết hướng căn</td><td>Thông tin vô dụng cho quyết định thực tế</td></tr>
+          </table>
+        </div>
+        <div class="sub-title">User Personas</div>
+        <div class="g3">
+          <div class="per-card"><div class="per-top"><div class="per-av" style="background:#EEF2FF;color:#3730A3">NL</div><div class="per-name">Nguyễn Thị Linh</div><div class="per-role">32 tuổi · Kế toán · Hà Nội · Người mua lần đầu</div><div class="per-quote">"Tôi sợ mua sai hướng, nhưng hỏi đâu cũng có câu trả lời khác nhau."</div></div><div class="per-row"><div class="per-label">Pain</div>Không biết căn nào hợp mệnh, thông tin rải rác</div><div class="per-row"><div class="per-label">Mong muốn</div>Giải thích rõ lý do, nhất quán, cá nhân hóa</div></div>
+          <div class="per-card"><div class="per-top"><div class="per-av" style="background:#FDF8EE;color:#92610A">TM</div><div class="per-name">Trần Quốc Minh</div><div class="per-role">43 tuổi · Nhà đầu tư BĐS · TP.HCM</div><div class="per-quote">"Tra phong thủy thủ công mỗi lần mất quá nhiều thời gian."</div></div><div class="per-row"><div class="per-label">Pain</div>So sánh 5–10 căn thủ công, không scalable</div><div class="per-row"><div class="per-label">Mong muốn</div>Tóm tắt nhanh, so sánh nhiều căn cùng lúc</div></div>
+          <div class="per-card"><div class="per-top"><div class="per-av" style="background:#E8F4F0;color:#1A6B5A">PH</div><div class="per-name">Phạm Thu Hoa</div><div class="per-role">28 tuổi · Sales agent BĐS · Đà Nẵng</div><div class="per-quote">"Khách hỏi phong thủy là tôi lúng túng ngay."</div></div><div class="per-row"><div class="per-label">Pain</div>Mất momentum, thiếu tool real-time</div><div class="per-row"><div class="per-label">Mong muốn</div>Dùng phone, response &lt;5s, dễ chia sẻ cho khách</div></div>
+        </div>
+      </div>
+
+      <!-- P-03 ARCHITECTURE -->
+      <div id="p-arch" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">03 · Kiến trúc AI 3 Layer</div>
+          <h1 class="sec-title">Pipeline: Rule → RAG → LLM</h1>
+          <p class="sec-desc">Kiến trúc 3 lớp đảm bảo kết quả nhất quán (rule), có chiều sâu (RAG), và dễ hiểu (LLM). Mỗi lớp có SLA riêng.</p>
+        </div>
+        <div class="arch-flow" style="margin-bottom:20px">
+          <div class="arch-step arch-s0"><div class="arch-step-lbl">Input</div><div class="arch-step-title">User + Căn hộ</div><div class="arch-step-desc">Năm sinh, giới tính, hướng cửa, hướng ban công, tầng</div></div>
+          <div class="arch-step arch-s1"><div class="arch-step-lbl">Layer 1 · Source of Truth</div><div class="arch-step-title">Rule Engine Bát trạch</div><div class="arch-step-desc">8×8 lookup · 64 case · 1–10 · &lt;50ms · 100% unit tested</div></div>
+          <div class="arch-step arch-s2"><div class="arch-step-lbl">Layer 2 · Explanation</div><div class="arch-step-title">RAG Lookup</div><div class="arch-step-desc">pgvector · top-5 chunks · metadata nguồn · &lt;200ms</div></div>
+          <div class="arch-step arch-s3"><div class="arch-step-lbl">Layer 3 · Presentation</div><div class="arch-step-title">Claude LLM</div><div class="arch-step-desc">Tổng hợp · streaming · p95 &lt;4s · không override rule</div></div>
+          <div class="arch-step arch-s4"><div class="arch-step-lbl">Output</div><div class="arch-step-title">Feng Score + Tư vấn 3 phần</div><div class="arch-step-desc">Tóm tắt → Chi tiết → Lưu ý + Disclaimer</div></div>
+        </div>
+        <div class="callout callout-gold"><div class="callout-title">🔑 Nguyên tắc bất biến</div>Rule Engine quyết định kết quả. RAG cung cấp nguồn giải thích. LLM trình bày bằng ngôn ngữ tự nhiên. AI không bao giờ được override rule.</div>
+      </div>
+
+      <!-- P-04 RULE ENGINE -->
+      <div id="p-rule" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">04 · Rule Engine Bát trạch</div>
+          <h1 class="sec-title">Ma trận 8×8 — 64 trường hợp</h1>
+          <p class="sec-desc">Rule engine là source of truth của hệ thống. Mỗi ô trong bảng 8 cung × 8 hướng cho ra sao phong thủy, điểm 1–10, và mức phù hợp.</p>
+        </div>
+        <div class="rule-grid">
+          <div class="rg-cell rg-header">Cung\Hướng</div><div class="rg-cell rg-header">N</div><div class="rg-cell rg-header">S</div><div class="rg-cell rg-header">E</div><div class="rg-cell rg-header">W</div><div class="rg-cell rg-header">NE</div><div class="rg-cell rg-header">NW</div><div class="rg-cell rg-header">SE</div><div class="rg-cell rg-header">SW</div>
+          <div class="rg-cell rg-row-header">Càn</div><div class="rg-cell rg-bad">2</div><div class="rg-cell rg-bad">1</div><div class="rg-cell rg-bad">3</div><div class="rg-cell rg-great">9</div><div class="rg-cell rg-good">8</div><div class="rg-cell rg-great">10</div><div class="rg-cell rg-mid">5</div><div class="rg-cell rg-good">7</div>
+          <div class="rg-cell rg-row-header">Đoài</div><div class="rg-cell rg-bad">3</div><div class="rg-cell rg-bad">2</div><div class="rg-cell rg-bad">1</div><div class="rg-cell rg-good">8</div><div class="rg-cell rg-great">10</div><div class="rg-cell rg-good">7</div><div class="rg-cell rg-mid">4</div><div class="rg-cell rg-great">9</div>
+          <div class="rg-cell rg-row-header">Cấn</div><div class="rg-cell rg-mid">4</div><div class="rg-cell rg-bad">3</div><div class="rg-cell rg-bad">2</div><div class="rg-cell rg-good">7</div><div class="rg-cell rg-great">9</div><div class="rg-cell rg-good">8</div><div class="rg-cell rg-bad">1</div><div class="rg-cell rg-great">10</div>
+          <div class="rg-cell rg-row-header">Khôn</div><div class="rg-cell rg-mid">5</div><div class="rg-cell rg-mid">4</div><div class="rg-cell rg-bad">1</div><div class="rg-cell rg-great">10</div><div class="rg-cell rg-good">7</div><div class="rg-cell rg-great">9</div><div class="rg-cell rg-bad">3</div><div class="rg-cell rg-good">8</div>
+          <div class="rg-cell rg-row-header">Khảm</div><div class="rg-cell rg-great">10</div><div class="rg-cell rg-great">9</div><div class="rg-cell rg-good">8</div><div class="rg-cell rg-bad">2</div><div class="rg-cell rg-bad">1</div><div class="rg-cell rg-mid">4</div><div class="rg-cell rg-good">7</div><div class="rg-cell rg-bad">3</div>
+          <div class="rg-cell rg-row-header">Ly</div><div class="rg-cell rg-great">9</div><div class="rg-cell rg-great">10</div><div class="rg-cell rg-good">7</div><div class="rg-cell rg-bad">1</div><div class="rg-cell rg-bad">3</div><div class="rg-cell rg-mid">5</div><div class="rg-cell rg-good">8</div><div class="rg-cell rg-bad">2</div>
+          <div class="rg-cell rg-row-header">Chấn</div><div class="rg-cell rg-good">8</div><div class="rg-cell rg-good">7</div><div class="rg-cell rg-great">10</div><div class="rg-cell rg-bad">3</div><div class="rg-cell rg-bad">2</div><div class="rg-cell rg-bad">1</div><div class="rg-cell rg-great">9</div><div class="rg-cell rg-mid">4</div>
+          <div class="rg-cell rg-row-header">Tốn</div><div class="rg-cell rg-good">7</div><div class="rg-cell rg-good">8</div><div class="rg-cell rg-great">9</div><div class="rg-cell rg-mid">4</div><div class="rg-cell rg-bad">3</div><div class="rg-cell rg-bad">2</div><div class="rg-cell rg-great">10</div><div class="rg-cell rg-mid">5</div>
+        </div>
+        <div class="callout callout-navy" style="margin-top:16px"><div class="callout-title">💡 Cách đọc bảng</div>Ví dụ: Cung <strong>Cấn</strong> + hướng <strong>Tây Nam</strong> = <strong>10 điểm</strong> (Sinh Khí — rất tốt). Cung <strong>Cấn</strong> + hướng <strong>Đông Nam</strong> = <strong>1 điểm</strong> (Tuyệt Mạng — không phù hợp). Unit test phải cover tất cả 64 ô.</div>
+      </div>
+
+      <!-- P-05 RAG & LLM -->
+      <div id="p-rag" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">05 · RAG & LLM Layer</div>
+          <h1 class="sec-title">Tìm kiếm tài liệu & Trình bày bằng AI</h1>
+          <p class="sec-desc">Layer 2 (RAG) lấy tài liệu tham chiếu để giải thích kết quả rule. Layer 3 (LLM) tổng hợp thành câu trả lời tự nhiên, có context.</p>
+        </div>
+        <div class="g2">
+          <div class="card card-gold">
+            <div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:8px">RAG PIPELINE</div>
+            <div style="font-size:13px;color:var(--g600);line-height:1.7">
+              <strong>Input:</strong> Rule result + user query<br>
+              <strong>Embed:</strong> text-embedding-3-small (OpenAI)<br>
+              <strong>Store:</strong> pgvector trong Supabase<br>
+              <strong>Retrieval:</strong> Cosine similarity, top-5 chunks<br>
+              <strong>Metadata:</strong> source_name, topic, reliability_level<br>
+              <strong>SLA:</strong> &lt;200ms retrieval time
+            </div>
+          </div>
+          <div class="card card-jade">
+            <div style="font-size:11px;font-weight:700;color:var(--jade);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:8px">LLM PRESENTATION</div>
+            <div style="font-size:13px;color:var(--g600);line-height:1.7">
+              <strong>Model:</strong> Claude 3.5 Sonnet (Anthropic)<br>
+              <strong>Context:</strong> Rule result + RAG chunks + user profile<br>
+              <strong>Output format:</strong><br>
+              1. Tóm tắt 1 câu<br>
+              2. Giải thích chi tiết (từ RAG)<br>
+              3. Lưu ý thực tế + Disclaimer<br>
+              <strong>SLA:</strong> p95 &lt;4s, streaming
+            </div>
+          </div>
+        </div>
+        <div class="callout callout-crimson" style="margin-top:16px"><div class="callout-title">🚫 Nguyên tắc bắt buộc</div>LLM không bao giờ được thay đổi score do rule engine trả về. Nếu RAG data mâu thuẫn rule, hệ thống phải flag "inconsistency" và ưu tiên rule. Mọi response PHẢI có disclaimer.</div>
+      </div>
+
+      <!-- P-06 SCOPE -->
+      <div id="p-scope" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">06 · Scope · In/Out</div>
+          <h1 class="sec-title">Phạm vi MVP v1.0</h1>
+        </div>
+        <div class="g2">
+          <div class="scope-box scope-in">
+            <div class="scope-label">✅ In-Scope MVP</div>
+            <div class="scope-li">Web app responsive, nhập hồ sơ người dùng</div>
+            <div class="scope-li">Tính cung phi / mệnh cục từ năm sinh + giới tính</div>
+            <div class="scope-li">Danh sách căn hộ kèm Feng Score Badge</div>
+            <div class="scope-li">AI chat giải thích lý do từ rule engine</div>
+            <div class="scope-li">So sánh 2–3 căn hộ (AI Comparison Card)</div>
+            <div class="scope-li">RAG từ tài liệu có kiểm soát</div>
+            <div class="scope-li">Lead capture + Sales dashboard cơ bản</div>
+            <div class="scope-li">PWA + Mobile responsive (375px+)</div>
+          </div>
+          <div class="scope-box scope-out">
+            <div class="scope-label">❌ Out-of-Scope v1</div>
+            <div class="scope-li">App mobile native (iOS/Android)</div>
+            <div class="scope-li">Marketplace / giao dịch thật</div>
+            <div class="scope-li">Thanh toán / đặt cọc thật</div>
+            <div class="scope-li">Scraping dữ liệu BĐS bừa bãi</div>
+            <div class="scope-li">Chụp ảnh / bản vẽ AI phân tích</div>
+            <div class="scope-li">Tự host LLM (dùng API)</div>
+            <div class="scope-li">Tư vấn nội thất / phong thủy tổng thể nhà</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P-07 MVP FEATURES -->
+      <div id="p-features" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">07 · MVP Features & Acceptance Criteria</div>
+          <h1 class="sec-title">8 tính năng MVP — 3 sprint</h1>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <tr><th>Tính năng</th><th>Sprint</th><th>Effort</th><th>Acceptance Criteria</th></tr>
+            <tr><td><strong>Auth + Profile Wizard</strong></td><td>W1</td><td>M</td><td>Email/Google login. Wizard 2 bước: (1) năm sinh + giới tính → tính cung phi real-time, (2) nhu cầu mua. Không cho qua nếu thiếu dữ liệu bắt buộc.</td></tr>
+            <tr><td><strong>Rule Engine Bát trạch</strong></td><td>W1</td><td>S</td><td>64 case đầy đủ. Response &lt;50ms. 100% unit tested. Đây là source of truth — mọi thành phần khác đều reference từ đây.</td></tr>
+            <tr><td><strong>Feng Score Badge + Listing</strong></td><td>W1</td><td>S</td><td>Badge xanh (8–10) / vàng (5–7) / đỏ (1–4) hiện ngay trên card căn hộ. Sort theo score. Filter theo hướng, ngân sách, phòng ngủ.</td></tr>
+            <tr><td><strong>AI Chat (streaming)</strong></td><td>W2</td><td>M</td><td>Response 3 phần (tóm tắt, chi tiết, lưu ý). Streaming real-time. p95 &lt;4s. Rule result là context bắt buộc. Có fallback nếu LLM lỗi.</td></tr>
+            <tr><td><strong>RAG Pipeline</strong></td><td>W2</td><td>M</td><td>PDF → chunk → embed → pgvector. Top-5 chunks. Metadata: source_name, topic. Benchmark queries tested. &lt;200ms retrieval.</td></tr>
+            <tr><td><strong>AI Comparison Card</strong></td><td>W2</td><td>S</td><td>So sánh 2–3 căn cùng lúc. Top-pick highlighted dựa trên score + ngân sách + nhu cầu. CTA lead capture sau comparison.</td></tr>
+            <tr><td><strong>Lead Capture + Dashboard</strong></td><td>W3</td><td>M</td><td>Lead lưu: tên, SĐT, căn quan tâm, score, cung mệnh, nhu cầu, chat summary. Email notify &lt;2 phút. Sales dashboard với status tracking.</td></tr>
+            <tr><td><strong>Mobile Responsive + PWA</strong></td><td>W3</td><td>S</td><td>375px+. Lighthouse mobile ≥80. Add to homescreen. Touch target ≥44px.</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- P-08 UX FLOW -->
+      <div id="p-ux" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">08 · UX Flow & Aha Moment</div>
+          <h1 class="sec-title">Hành trình người dùng</h1>
+          <p class="sec-desc">Aha moment = Feng Score Badge hiển thị ngay trên listing. Người dùng thấy giá trị TRƯỚC khi chat.</p>
+        </div>
+        <div class="ux-step"><div class="ux-num">1</div><div><div class="ux-title">Landing Page</div><div class="ux-desc">Giải thích giá trị: "Tìm căn hộ phù hợp mệnh của bạn"</div><div class="ux-ac">CTA → Đăng ký/Đăng nhập. Hiểu sản phẩm trong 10 giây.</div></div></div>
+        <div class="ux-step"><div class="ux-num">2</div><div><div class="ux-title">Profile Wizard (2 bước)</div><div class="ux-desc">Bước 1: Năm sinh + giới tính → tính cung phi. Bước 2: Nhu cầu mua.</div><div class="ux-ac">Tính cung phi real-time ngay khi đủ dữ liệu. Wizard completion ≥80%.</div></div></div>
+        <div class="ux-step"><div class="ux-num">3</div><div><div class="ux-title">Danh sách căn hộ + Feng Score Badge</div><div class="ux-desc">Mỗi card có badge xanh/vàng/đỏ. Sort theo score. Filter hướng, ngân sách.</div><div class="ux-ac">⚡ AHA MOMENT — Badge hiển thị ngay, không cần chat.</div></div></div>
+        <div class="ux-step"><div class="ux-num">4</div><div><div class="ux-title">Chi tiết căn hộ</div><div class="ux-desc">Score, hướng cửa/ban công, sao phong thủy, tóm tắt lý do. CTA: Hỏi AI.</div><div class="ux-ac">Context căn hộ được truyền sang AI Chat.</div></div></div>
+        <div class="ux-step"><div class="ux-num">5</div><div><div class="ux-title">AI Chat giải thích</div><div class="ux-desc">Response 3 phần: tóm tắt, chi tiết từ RAG, lưu ý thực tế + disclaimer.</div><div class="ux-ac">p95 &lt;4s. Có source/rule ID. Fallback nếu LLM lỗi.</div></div></div>
+        <div class="ux-step"><div class="ux-num">6</div><div><div class="ux-title">So sánh căn hộ (Comparison Card)</div><div class="ux-desc">So sánh 2–3 căn. Top-pick highlighted. Lý do cho mỗi căn.</div><div class="ux-ac">CTA lead capture sau comparison.</div></div></div>
+        <div class="ux-step"><div class="ux-num">7</div><div><div class="ux-title">Lead Capture → Sales Dashboard</div><div class="ux-desc">User để lại tên, SĐT, thời gian. Sales nhận lead + full context.</div><div class="ux-ac">Email notify &lt;2 phút. Sales thấy lead kèm AI summary.</div></div></div>
+      </div>
+
+      <!-- P-09 DATASET -->
+      <div id="p-dataset" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">09 · Dataset Design</div>
+          <h1 class="sec-title">Cấu trúc dữ liệu & Schema</h1>
+        </div>
+        <div class="g2" style="margin-bottom:24px">
+          <div class="card"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:10px">DỮ LIỆU MẪU</div><div style="font-size:13px;color:var(--g600);line-height:1.8">· <strong>10</strong> dự án chung cư giả lập (Hà Nội, TP.HCM, Đà Nẵng)<br>· <strong>20</strong> block/tòa (2 block/dự án)<br>· <strong>160</strong> căn hộ (8 hướng × mỗi block)<br>· <strong>64</strong> rule phong thủy (8 cung × 8 hướng)<br>· <strong>16–32</strong> user profile test với các năm sinh khác nhau</div></div>
+          <div class="card"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.1em;margin-bottom:10px">RAG DOCUMENTS</div><div style="font-size:13px;color:var(--g600);line-height:1.8">· <strong>5–10</strong> tài liệu phong thủy có nguồn rõ ràng<br>· PDF/MD → <strong>chunk 500 tokens</strong> với overlap<br>· Embed bằng <strong>text-embedding-3-small</strong><br>· Store trong <strong>pgvector</strong> (Supabase)<br>· Metadata: source_name, topic, reliability</div></div>
+        </div>
+        <div class="sub-title">Schema chính</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <tr><th>Table</th><th>Trường quan trọng</th><th>Ghi chú</th></tr>
+            <tr><td><strong>users</strong></td><td>id, email, birth_year, gender, gua, direction_group</td><td>Tính gua từ năm sinh + giới tính</td></tr>
+            <tr><td><strong>projects</strong></td><td>id, name, city, district, description</td><td>10 dự án giả lập</td></tr>
+            <tr><td><strong>apartments</strong></td><td>id, project_id, block, floor, area_m2, bedrooms, price, main_door_direction, balcony_direction</td><td>160 căn hộ. Hướng cửa bắt buộc.</td></tr>
+            <tr><td><strong>feng_rules</strong></td><td>user_gua, apartment_direction, star_name, score, compatibility, explanation, recommendation</td><td>64 rule. Source of truth.</td></tr>
+            <tr><td><strong>leads</strong></td><td>id, user_id, apartment_id, score, phone, preferred_time, notes, status</td><td>Status: New/Contacted/Scheduled/Closed</td></tr>
+            <tr><td><strong>rag_documents</strong></td><td>id, content, embedding, source_name, topic, reliability_level</td><td>pgvector cho similarity search</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- P-10 SURVEY -->
+      <div id="p-survey" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">10 · Survey & Evidence</div>
+          <h1 class="sec-title">Kiểm chứng giả thuyết</h1>
+          <p class="sec-desc">MVP cần kiểm chứng 3 giả thuyết cốt lõi trước khi scale. Survey 10–15 câu, target 50+ responses.</p>
+        </div>
+        <div class="hypothesis"><div class="hyp-num">Hypothesis 1</div><div class="hyp-statement">Người mua nhà tại VN thực sự coi phong thủy là yếu tố quan trọng</div><div class="hyp-test">Đo bằng: % respondents chọn "Quan trọng" hoặc "Rất quan trọng" trong survey. Target: ≥60%.</div></div>
+        <div class="hypothesis"><div class="hyp-num">Hypothesis 2</div><div class="hyp-statement">Thông tin phong thủy hiện tại gây khó khăn cho quyết định mua</div><div class="hyp-test">Đo bằng: % respondents gặp khó khăn tìm thông tin nhất quán. Target: ≥50%.</div></div>
+        <div class="hypothesis"><div class="hyp-num">Hypothesis 3</div><div class="hyp-statement">Người mua sẵn sàng dùng tool AI để hỗ trợ đánh giá phong thủy</div><div class="hyp-test">Đo bằng: % respondents "Sẵn sàng" hoặc "Rất sẵn sàng" dùng AI. Target: ≥40%.</div></div>
+      </div>
+
+      <!-- P-11 TECH STACK -->
+      <div id="p-tech" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">11 · Tech Stack</div>
+          <h1 class="sec-title">Công nghệ & Lý do chọn</h1>
+        </div>
+        <div class="g3">
+          <div class="tech-item"><div class="tech-layer">Frontend</div><div class="tech-name">Next.js 14</div><div class="tech-reason">App Router, SSR, SEO tốt. Vercel deploy dễ dàng. TypeScript.</div></div>
+          <div class="tech-item"><div class="tech-layer">Backend</div><div class="tech-name">FastAPI (Python)</div><div class="tech-reason">Async, type hints, tích hợp LLM dễ. Streaming support tốt.</div></div>
+          <div class="tech-item"><div class="tech-layer">Database</div><div class="tech-name">Supabase (PostgreSQL)</div><div class="tech-reason">Auth built-in. pgvector cho RAG. Row-level security. Free tier tốt.</div></div>
+          <div class="tech-item"><div class="tech-layer">AI / LLM</div><div class="tech-name">Claude 3.5 Sonnet</div><div class="tech-reason">Anthropic API. Tốt cho tiếng Việt. Streaming. Giá hợp lý.</div></div>
+          <div class="tech-item"><div class="tech-layer">Embedding</div><div class="tech-name">text-embedding-3-small</div><div class="tech-reason">OpenAI. Rẻ nhất. Đủ tốt cho RAG use case này.</div></div>
+          <div class="tech-item"><div class="tech-layer">Deploy</div><div class="tech-name">Vercel + Railway</div><div class="tech-reason">Vercel cho frontend. Railway cho FastAPI. CI/CD tự động.</div></div>
+        </div>
+      </div>
+
+      <!-- P-12 SPRINT -->
+      <div id="p-sprint" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">12 · Sprint Plan 4 tuần</div>
+          <h1 class="sec-title">Chi tiết từng tuần</h1>
+        </div>
+        <div class="g2">
+          <div class="sprint-card"><div class="sprint-header"><div class="sprint-wk">Tuần 1 · Foundation</div><div class="sprint-name">Setup + Core Engine</div></div><div class="sprint-body"><div class="sprint-item"><div class="sprint-dot"></div>Supabase setup: auth, DB schema, RLS</div><div class="sprint-item"><div class="sprint-dot"></div>Next.js scaffold + deploy Vercel</div><div class="sprint-item"><div class="sprint-dot"></div>FastAPI scaffold + deploy Railway</div><div class="sprint-item"><div class="sprint-dot"></div>Profile Wizard (2 steps)</div><div class="sprint-item"><div class="sprint-dot"></div>Rule Engine: 64 case + unit tests</div><div class="sprint-item"><div class="sprint-dot"></div>Seed data: 10 projects, 160 apartments</div></div></div>
+          <div class="sprint-card"><div class="sprint-header"><div class="sprint-wk">Tuần 2 · AI Core</div><div class="sprint-name">RAG + Chat + Badge</div></div><div class="sprint-body"><div class="sprint-item"><div class="sprint-dot"></div>RAG pipeline: PDF → chunk → embed → pgvector</div><div class="sprint-item"><div class="sprint-dot"></div>AI Chat endpoint: Claude + streaming</div><div class="sprint-item"><div class="sprint-dot"></div>Feng Score Badge trên listing</div><div class="sprint-item"><div class="sprint-dot"></div>Unit Detail page + CTA "Hỏi AI"</div><div class="sprint-item"><div class="sprint-dot"></div>AI Comparison Card (2–3 căn)</div><div class="sprint-item"><div class="sprint-dot"></div>Benchmark RAG queries</div></div></div>
+          <div class="sprint-card"><div class="sprint-header"><div class="sprint-wk">Tuần 3 · Business</div><div class="sprint-name">Lead + Sales + PWA</div></div><div class="sprint-body"><div class="sprint-item"><div class="sprint-dot"></div>Lead Capture form + context attach</div><div class="sprint-item"><div class="sprint-dot"></div>Sales Dashboard: lead list + detail</div><div class="sprint-item"><div class="sprint-dot"></div>Email notification (&lt;2 phút)</div><div class="sprint-item"><div class="sprint-dot"></div>Mobile responsive (375px+)</div><div class="sprint-item"><div class="sprint-dot"></div>PWA manifest + service worker</div></div></div>
+          <div class="sprint-card"><div class="sprint-header"><div class="sprint-wk">Tuần 4 · Polish</div><div class="sprint-name">QA + Demo Prep</div></div><div class="sprint-body"><div class="sprint-item"><div class="sprint-dot"></div>Edge cases: empty states, LLM errors</div><div class="sprint-item"><div class="sprint-dot"></div>Load testing: concurrent users</div><div class="sprint-item"><div class="sprint-dot"></div>UI polish + animations</div><div class="sprint-item"><div class="sprint-dot"></div>G2 demo preparation</div><div class="sprint-item"><div class="sprint-dot"></div>Documentation + README update</div></div></div>
+        </div>
+      </div>
+
+      <!-- P-13 METRICS -->
+      <div id="p-metrics" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">13 · Metrics & Success</div>
+          <h1 class="sec-title">Chỉ số đo lường thành công</h1>
+        </div>
+        <div class="g3" style="margin-bottom:24px">
+          <div class="mcard"><div class="mcard-val">≥70%</div><div class="mcard-lbl">Chat session completion rate</div><div class="mcard-sub">User hỏi AI → nhận câu trả lời đầy đủ</div></div>
+          <div class="mcard"><div class="mcard-val">≥80%</div><div class="mcard-lbl">Wizard completion rate</div><div class="mcard-sub">User hoàn tất onboarding 2 bước</div></div>
+          <div class="mcard"><div class="mcard-val">≥20%</div><div class="mcard-lbl">Đặt lịch / Lead rate</div><div class="mcard-sub">User để lại thông tin sau chat</div></div>
+          <div class="mcard"><div class="mcard-val">&lt;4s</div><div class="mcard-lbl">AI response p95 latency</div><div class="mcard-sub">Rule + RAG + LLM pipeline</div></div>
+          <div class="mcard"><div class="mcard-val">≥30</div><div class="mcard-lbl">Leads/tháng</div><div class="mcard-sub">Business value cho sales team</div></div>
+          <div class="mcard"><div class="mcard-val">≥99%</div><div class="mcard-lbl">System uptime</div><div class="mcard-sub">Vercel + Railway reliability</div></div>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <tr><th>Performance Metric</th><th>Target</th><th>Đo bằng</th></tr>
+            <tr><td>Rule Engine response time</td><td>&lt;50ms</td><td>Server logs, p95</td></tr>
+            <tr><td>RAG retrieval time</td><td>&lt;200ms</td><td>Server logs, p95</td></tr>
+            <tr><td>Full AI response (streaming start)</td><td>&lt;1.5s</td><td>Frontend metrics</td></tr>
+            <tr><td>Full AI response (complete)</td><td>&lt;4s p95</td><td>End-to-end measurement</td></tr>
+            <tr><td>Lighthouse mobile score</td><td>≥80</td><td>Lighthouse CI</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- P-14 RISK -->
+      <div id="p-risk" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">14 · Risk & Mitigation</div>
+          <h1 class="sec-title">Phân tích rủi ro</h1>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="risk-item"><div class="risk-sev" style="background:#E57373">H</div><div style="flex:1"><div class="risk-title">AI trả lời sai phong thủy / hallucination</div><div class="risk-desc">Nếu LLM tự sinh thông tin sai, user tin và mua sai căn. Mất uy tín hoàn toàn.</div><div class="risk-mit">✓ Rule engine là source of truth. LLM chỉ diễn giải, không override. Disclaimer bắt buộc mỗi response. Unit test 64/64 case.</div></div></div>
+          <div class="risk-item"><div class="risk-sev" style="background:#E57373">H</div><div style="flex:1"><div class="risk-title">RAG data mâu thuẫn rule engine</div><div class="risk-desc">Tài liệu phong thủy có thể giải thích khác với bảng Bát trạch chuẩn. User nhận thông tin mâu thuẫn.</div><div class="risk-mit">✓ Rule engine LUÔN được ưu tiên. Khi conflict → flag "mức độ chưa chắc chắn". Curate tài liệu RAG cẩn thận.</div></div></div>
+          <div class="risk-item"><div class="risk-sev" style="background:#FFB74D">M</div><div style="flex:1"><div class="risk-title">AI response latency vượt 4s</div><div class="risk-desc">Rule + RAG + LLM pipeline có thể kéo dài nếu không optimize.</div><div class="risk-mit">✓ Rule precompute khi load listing (&lt;50ms). Streaming che latency LLM. Cache rule results. RAG parallelized với rule call.</div></div></div>
+          <div class="risk-item"><div class="risk-sev" style="background:#FFB74D">L</div><div style="flex:1"><div class="risk-title">Scope creep — thêm tính năng ngoài kế hoạch</div><div class="risk-desc">Nhóm có thể bị hấp dẫn bởi image analysis, realtime chat, marketplace.</div><div class="risk-mit">✓ PRD có in/out-scope rõ ràng. Mọi thay đổi scope cần sign-off. "Post-MVP" list là cơ sở từ chối.</div></div></div>
+          <div class="risk-item"><div class="risk-sev" style="background:#FFB74D">L</div><div style="flex:1"><div class="risk-title">Chi phí API (Anthropic + OpenAI) vượt dự kiến</div><div class="risk-desc">Demo với nhiều user có thể tốn phí ngoài dự kiến nếu không rate limit.</div><div class="risk-mit">✓ Rate limit: max 20 messages/user/ngày. Cache rule results. Dùng text-embedding-3-small (rẻ nhất). Hard cap $50/tháng.</div></div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TAB C — WIREFRAME UI FLOW
+═══════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-wireframe">
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sn-group">
+        <div class="sn-group-label">Overview</div>
+        <a class="sn-item active" onclick="showSec(this,'w-intro')"><span class="sn-num">01</span><span class="sn-dot"></span>Mục tiêu & UX Principles</a>
+        <a class="sn-item" onclick="showSec(this,'w-flow')"><span class="sn-num">02</span><span class="sn-dot"></span>User Flow tổng thể</a>
+        <a class="sn-item" onclick="showSec(this,'w-screenmap')"><span class="sn-num">03</span><span class="sn-dot"></span>Screen Map</a>
+      </div>
+      <div class="sn-group">
+        <div class="sn-group-label">Wireframes</div>
+        <a class="sn-item" onclick="showSec(this,'w-s1')"><span class="sn-num">S1</span><span class="sn-dot"></span>Landing Page</a>
+        <a class="sn-item" onclick="showSec(this,'w-s2')"><span class="sn-num">S2</span><span class="sn-dot"></span>Profile Wizard</a>
+        <a class="sn-item" onclick="showSec(this,'w-s3')"><span class="sn-num">S3</span><span class="sn-dot"></span>Unit Listing</a>
+        <a class="sn-item" onclick="showSec(this,'w-s4')"><span class="sn-num">S4</span><span class="sn-dot"></span>Unit Detail</a>
+        <a class="sn-item" onclick="showSec(this,'w-s5')"><span class="sn-num">S5</span><span class="sn-dot"></span>AI Chat</a>
+        <a class="sn-item" onclick="showSec(this,'w-s6')"><span class="sn-num">S6</span><span class="sn-dot"></span>Comparison Card</a>
+        <a class="sn-item" onclick="showSec(this,'w-s7')"><span class="sn-num">S7</span><span class="sn-dot"></span>Lead Capture</a>
+        <a class="sn-item" onclick="showSec(this,'w-s8')"><span class="sn-num">S8</span><span class="sn-dot"></span>Sales Dashboard</a>
+      </div>
+      <div class="sn-group">
+        <div class="sn-group-label">Specs</div>
+        <a class="sn-item" onclick="showSec(this,'w-admin')"><span class="sn-num">S9</span><span class="sn-dot"></span>Admin & RAG</a>
+        <a class="sn-item" onclick="showSec(this,'w-states')"><span class="sn-num">10</span><span class="sn-dot"></span>States & Mobile</a>
+        <a class="sn-item" onclick="showSec(this,'w-design')"><span class="sn-num">11</span><span class="sn-dot"></span>Design System</a>
+      </div>
+    </nav>
+    <main class="content">
+
+      <!-- W-01 INTRO -->
+      <div id="w-intro" class="section active">
+        <div class="sec-header">
+          <div class="sec-eyebrow">Wireframe / UI Flow</div>
+          <h1 class="sec-title">Mục tiêu & Nguyên tắc UX</h1>
+          <p class="sec-desc">Wireframe mô tả hành trình người dùng từ lúc truy cập đến khi nhận đánh giá phong thủy, so sánh căn hộ và để lại lead tư vấn.</p>
+        </div>
+        <div class="callout callout-jade" style="margin-bottom:24px"><div class="callout-title">🎯 Core Journey</div>Người dùng nhập thông tin cá nhân → hệ thống tính cung mệnh → xem danh sách căn hộ có Feng Score → hỏi AI giải thích → so sánh 2–3 căn → để lại lead tư vấn.</div>
+        <div class="sub-title">Nguyên tắc thiết kế UX</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <tr><th>Nguyên tắc</th><th>Ý nghĩa</th><th>Cách thể hiện trong UI</th></tr>
+            <tr><td><strong>Aha moment sớm</strong></td><td>Người dùng thấy giá trị trước khi chat</td><td>Feng Score Badge hiển thị ngay trên card căn hộ</td></tr>
+            <tr><td><strong>Rule-first</strong></td><td>AI không tự phán phong thủy</td><td>Mọi kết quả hiển thị score, rule, lý do và disclaimer</td></tr>
+            <tr><td><strong>Giảm friction</strong></td><td>Không hỏi quá nhiều lúc đầu</td><td>Onboarding chỉ 2 bước: mệnh cục + nhu cầu</td></tr>
+            <tr><td><strong>Decision-support</strong></td><td>Hỗ trợ ra quyết định, không thay người dùng</td><td>Có so sánh căn hộ, ưu/nhược, lưu ý thực tế</td></tr>
+            <tr><td><strong>Sales-ready</strong></td><td>Kết quả có thể chuyển thành lead</td><td>CTA đặt lịch/tư vấn xuất hiện sau chat và comparison</td></tr>
+            <tr><td><strong>Mobile-first</strong></td><td>Sales và người mua dùng khi đi xem căn</td><td>Layout responsive, nút CTA rõ, chat dễ trên điện thoại</td></tr>
+          </table>
+        </div>
+        <div class="sub-title" style="margin-top:24px">User Roles</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <tr><th>Role</th><th>Mục tiêu chính</th><th>Màn hình liên quan</th></tr>
+            <tr><td><strong>Visitor</strong></td><td>Hiểu sản phẩm, bắt đầu dùng thử</td><td>Landing Page</td></tr>
+            <tr><td><strong>Buyer/User</strong></td><td>Tạo hồ sơ, xem căn, hỏi AI, so sánh, để lại lead</td><td>Wizard, Listing, Detail, Chat, Compare, Lead Form</td></tr>
+            <tr><td><strong>Sales Agent</strong></td><td>Nhận lead, xem context khách hàng</td><td>Sales Dashboard</td></tr>
+            <tr><td><strong>Admin</strong></td><td>Quản lý dữ liệu căn hộ, rule, tài liệu RAG</td><td>Admin Projects, Admin RAG</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- W-02 USER FLOW -->
+      <div id="w-flow" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">02 · User Flow tổng thể</div>
+          <h1 class="sec-title">Overall User Flow</h1>
+        </div>
+        <div class="wf-block">Visitor vào Landing Page
+    ↓
+Đăng ký / Đăng nhập
+    ↓
+Profile Wizard Step 1: Năm sinh + Giới tính
+    ↓
+Hệ thống tính Cung Phi / Nhóm hướng
+    ↓
+Profile Wizard Step 2: Nhu cầu mua
+    ↓
+Danh sách dự án / căn hộ (có Feng Score Badge)
+    ↓
+Chi tiết căn hộ → AI Chat giải thích
+    ↓
+AI Comparison Card (2–3 căn)
+    ↓
+User muốn tư vấn? → CÓ → Lead Capture Form
+                   → CHƯA → Quay lại danh sách
+    ↓
+Sales Dashboard nhận lead + context đầy đủ</div>
+        <div class="sub-title">Core Buyer Journey</div>
+        <div class="ux-step"><div class="ux-num">1</div><div><div class="ux-title">User vào Landing Page</div></div></div>
+        <div class="ux-step"><div class="ux-num">2</div><div><div class="ux-title">Click "Tìm căn hợp mệnh" → Đăng ký</div></div></div>
+        <div class="ux-step"><div class="ux-num">3</div><div><div class="ux-title">Hoàn tất Profile Wizard</div></div></div>
+        <div class="ux-step"><div class="ux-num">4</div><div><div class="ux-title">Xem danh sách căn hộ đã có Feng Score ⚡</div></div></div>
+        <div class="ux-step"><div class="ux-num">5</div><div><div class="ux-title">Mở chi tiết → Hỏi AI: "Căn này hợp không?"</div></div></div>
+        <div class="ux-step"><div class="ux-num">6</div><div><div class="ux-title">So sánh 2–3 căn</div></div></div>
+        <div class="ux-step"><div class="ux-num">7</div><div><div class="ux-title">Để lại lead tư vấn → Sales nhận kèm context</div></div></div>
+      </div>
+
+      <!-- W-03 SCREEN MAP -->
+      <div id="w-screenmap" class="section">
+        <div class="sec-header">
+          <div class="sec-eyebrow">03 · Screen Map</div>
+          <h1 class="sec-title">Danh sách màn hình MVP</h1>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <tr><th>Mã</th><th>Màn hình</th><th>Mục tiêu</th><th>User chính</th><th>Priority</th></tr>
+            <tr><td><strong>S1</strong></td><td>Landing Page</td><td>Giải thích giá trị sản phẩm</td><td>Visitor</td><td><span class="tag tag-crimson">Must</span></td></tr>
+            <tr><td><strong>S2</strong></td><td>Profile Setup Wizard</td><td>Thu thập năm sinh, giới tính, nhu cầu</td><td>Buyer</td><td><span class="tag tag-crimson">Must</span></td></tr>
+            <tr><td><strong>S3</strong></td><td>Project / Unit Listing</td><td>Hiển thị căn hộ kèm Feng Score</td><td>Buyer</td><td><span class="tag tag-crimson">Must</span></td></tr>
+            <tr><td><strong>S4</strong></td><td>Unit Detail</td><td>Chi tiết căn hộ + điểm phong thủy</td><td>Buyer</td><td><span class="tag tag-crimson">Must</span></td></tr>
+            <tr><td><strong>S5</strong></td><td>AI Chat</td><td>Giải thích vì sao hợp/không hợp</td><td>Buyer</td><td><span class="tag tag-crimson">Must</span></td></tr>
+            <tr><td><strong>S6</strong></td><td>AI Comparison Card</td><td>So sánh 2–3 căn + gợi ý top pick</td><td>Buyer</td><td><span class="tag tag-amber">Should</span></td></tr>
+            <tr><td><strong>S7</strong></td><td>Lead Capture</td><td>Thu thông tin tư vấn / đặt lịch</td><td>Buyer</td><td><span class="tag tag-crimson">Must</span></td></tr>
+            <tr><td><strong>S8</strong></td><td>Sales Dashboard</td><td>Sales xem lead + context</td><td>Sales</td><td><span class="tag tag-amber">Should</span></td></tr>
+            <tr><td><strong>S9</strong></td><td>Admin Projects/Units</td><td>Quản lý dữ liệu dự án, căn hộ</td><td>Admin</td><td><span class="tag tag-crimson">Must</span></td></tr>
+            <tr><td><strong>S10</strong></td><td>Admin RAG Knowledge</td><td>Upload tài liệu, quản lý chunks</td><td>Admin</td><td><span class="tag tag-amber">Should</span></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- W-S1 LANDING PAGE -->
+      <div id="w-s1" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S1 · Wireframe</div><h1 class="sec-title">Landing Page</h1><p class="sec-desc">Chuyển visitor thành registered user. Giải thích nhanh: V-FENG giúp tìm căn hộ hợp mệnh, có căn cứ rule.</p></div>
+        <div class="wireframe-section">
+          <div class="wireframe-title">Màn hình 1 — Landing Page <span class="wireframe-badge">Visitor Entry Point</span></div>
+          <div class="wf-container">
+            <div class="wf-chrome">
+              <div class="wf-dot" style="background:#FF5F56"></div>
+              <div class="wf-dot" style="background:#FFBD2E"></div>
+              <div class="wf-dot" style="background:#27C93F"></div>
+              <div class="wf-url-bar">vfeng-compass.app</div>
+            </div>
+            <div class="wf-body" style="padding:0">
+              <!-- Nav bar -->
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid var(--g200)">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div style="width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center">
+                    <svg viewBox="0 0 24 24" style="fill:var(--gold-lt);width:12px;height:12px"><path d="M12 2L9 9L2 12L9 15L12 22L15 15L22 12L15 9Z"/></svg>
+                  </div>
+                  <span style="font-weight:700;font-size:14px;color:var(--navy)">V-FENG Compass</span>
+                </div>
+                <div style="display:flex;gap:16px;font-size:12px;color:var(--g400)">
+                  <span>Cách hoạt động</span>
+                  <span>Tính năng</span>
+                  <button style="padding:5px 14px;background:var(--navy);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer">Đăng nhập</button>
+                </div>
+              </div>
+              <!-- Hero -->
+              <div style="text-align:center;padding:48px 24px 32px">
+                <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:12px">Tìm căn hộ phù hợp mệnh của bạn</div>
+                <div style="font-size:13px;color:var(--g600);max-width:500px;margin:0 auto 20px;line-height:1.6">AI đánh giá phong thủy căn hộ dựa trên cung mệnh, hướng căn hộ và bộ rule Bát trạch kiểm chứng 64 trường hợp.</div>
+                <div style="display:flex;gap:10px;justify-content:center">
+                  <button style="padding:10px 24px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Tìm căn hợp mệnh →</button>
+                  <button style="padding:10px 24px;background:transparent;color:var(--navy);border:1px solid var(--g200);border-radius:8px;font-size:14px;cursor:pointer">Xem cách hoạt động</button>
+                </div>
+              </div>
+              <!-- Features row -->
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--g200)">
+                <div style="padding:16px 20px;text-align:center;border-right:1px solid var(--g200)">
+                  <div style="font-size:20px;margin-bottom:4px">🧭</div>
+                  <div style="font-size:13px;font-weight:600;color:var(--navy)">Cá nhân hóa</div>
+                  <div style="font-size:11px;color:var(--g400)">Theo năm sinh & giới tính</div>
+                </div>
+                <div style="padding:16px 20px;text-align:center;border-right:1px solid var(--g200)">
+                  <div style="font-size:20px;margin-bottom:4px">🏠</div>
+                  <div style="font-size:13px;font-weight:600;color:var(--navy)">Gắn với căn hộ</div>
+                  <div style="font-size:11px;color:var(--g400)">Dữ liệu căn hộ thật</div>
+                </div>
+                <div style="padding:16px 20px;text-align:center">
+                  <div style="font-size:20px;margin-bottom:4px">⚖️</div>
+                  <div style="font-size:13px;font-weight:600;color:var(--navy)">Cân bằng</div>
+                  <div style="font-size:11px;color:var(--g400)">Phong thủy + thực tế</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">1</div>
+            <div>CTA chính "Tìm căn hợp mệnh →" dẫn tới đăng ký. Người dùng hiểu sản phẩm trong dưới 10 giây. Có disclaimer ngắn: "Thông tin mang tính tham khảo theo quan niệm truyền thống."</div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">2</div>
+            <div>3 USP ở dưới hero: cá nhân hóa, gắn dữ liệu thật, cân bằng — giải thích vì sao khác ChatGPT thông thường.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-S2 PROFILE WIZARD -->
+      <div id="w-s2" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S2 · Wireframe</div><h1 class="sec-title">Profile Setup Wizard</h1><p class="sec-desc">Thu thập thông tin tối thiểu để hệ thống tính cung mệnh và cá nhân hóa kết quả.</p></div>
+        <div class="g2">
+          <!-- Step 1 -->
+          <div class="wireframe-section">
+            <div class="wireframe-title">Step 1 — Mệnh cục <span class="wireframe-badge">Bước 1 / 2</span></div>
+            <div class="wf-container">
+              <div class="wf-chrome">
+                <div class="wf-dot" style="background:#FF5F56"></div>
+                <div class="wf-dot" style="background:#FFBD2E"></div>
+                <div class="wf-dot" style="background:#27C93F"></div>
+                <div class="wf-url-bar">vfeng-compass.app/onboarding</div>
+              </div>
+              <div class="wf-body">
+                <div style="max-width:420px;margin:0 auto">
+                  <div style="display:flex;gap:8px;margin-bottom:24px">
+                    <div style="height:4px;flex:1;border-radius:2px;background:var(--navy)"></div>
+                    <div style="height:4px;flex:1;border-radius:2px;background:var(--g200)"></div>
+                  </div>
+                  <div class="wf-label">Bước 1 / 2 — Mệnh cục</div>
+                  <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">Tính mệnh cục của bạn</div>
+                  <div style="margin-bottom:16px">
+                    <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Năm sinh dương lịch</div>
+                    <input type="number" value="1992" disabled style="width:100%;padding:10px 14px;border:1px solid var(--g200);border-radius:8px;font-family:'Source Serif 4',serif;font-size:13px;background:var(--white)">
+                  </div>
+                  <div style="margin-bottom:16px">
+                    <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Giới tính</div>
+                    <div style="display:flex;gap:8px">
+                      <button style="flex:1;padding:9px;border:2px solid var(--navy);border-radius:8px;background:var(--navy);color:#fff;font-weight:600;font-size:13px;cursor:pointer">Nam ✓</button>
+                      <button style="flex:1;padding:9px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:13px;cursor:pointer;color:var(--g600)">Nữ</button>
+                    </div>
+                  </div>
+                  <div style="background:var(--gold-bg);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:16px">
+                    <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px">✨ Mệnh của bạn</div>
+                    <div style="font-size:15px;font-weight:700;color:var(--navy)">Thổ — Cung Cấn</div>
+                    <div style="font-size:12px;color:var(--g600);margin-top:2px">Hướng tốt: Tây, Tây Bắc, Tây Nam, Đông Bắc</div>
+                  </div>
+                  <button style="width:100%;padding:11px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer">Tiếp theo →</button>
+                </div>
+              </div>
+            </div>
+            <div class="annotation">
+              <div class="annotation-num">1</div>
+              <div>Tính cung phi real-time khi user nhập năm sinh + chọn giới tính — không cần bấm submit. Tạo "immediate value" khiến user muốn hoàn thành wizard.</div>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="wireframe-section">
+            <div class="wireframe-title">Step 2 — Nhu cầu mua <span class="wireframe-badge">Bước 2 / 2</span></div>
+            <div class="wf-container">
+              <div class="wf-chrome">
+                <div class="wf-dot" style="background:#FF5F56"></div>
+                <div class="wf-dot" style="background:#FFBD2E"></div>
+                <div class="wf-dot" style="background:#27C93F"></div>
+                <div class="wf-url-bar">vfeng-compass.app/onboarding</div>
+              </div>
+              <div class="wf-body">
+                <div style="max-width:420px;margin:0 auto">
+                  <div style="display:flex;gap:8px;margin-bottom:24px">
+                    <div style="height:4px;flex:1;border-radius:2px;background:var(--navy)"></div>
+                    <div style="height:4px;flex:1;border-radius:2px;background:var(--navy)"></div>
+                  </div>
+                  <div class="wf-label">Bước 2 / 2 — Nhu cầu mua</div>
+                  <div style="margin-bottom:14px">
+                    <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Mục đích mua</div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                      <button style="padding:7px 14px;border:2px solid var(--navy);border-radius:8px;background:var(--navy);color:#fff;font-weight:600;font-size:12px;cursor:pointer">Để ở ✓</button>
+                      <button style="padding:7px 14px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--g600)">Đầu tư</button>
+                      <button style="padding:7px 14px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--g600)">Cho thuê</button>
+                    </div>
+                  </div>
+                  <div style="margin-bottom:14px">
+                    <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Ngân sách</div>
+                    <div style="position:relative;height:32px;background:var(--g100);border-radius:99px;overflow:hidden">
+                      <div style="position:absolute;top:0;left:0;height:100%;width:45%;background:linear-gradient(90deg,var(--navy),var(--navy-mid));border-radius:99px"></div>
+                      <div style="position:absolute;top:50%;left:45%;transform:translate(-50%,-50%);width:20px;height:20px;background:#fff;border-radius:50%;border:2px solid var(--navy);box-shadow:0 1px 4px rgba(0,0,0,0.15)"></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--g400);margin-top:4px"><span>1 tỷ</span><span style="font-weight:700;color:var(--navy)">~3 tỷ</span><span>10 tỷ</span></div>
+                  </div>
+                  <div style="margin-bottom:14px">
+                    <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Số phòng ngủ</div>
+                    <div style="display:flex;gap:6px">
+                      <button style="padding:7px 14px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--g600)">Studio</button>
+                      <button style="padding:7px 14px;border:2px solid var(--navy);border-radius:8px;background:var(--navy);color:#fff;font-weight:600;font-size:12px;cursor:pointer">2PN ✓</button>
+                      <button style="padding:7px 14px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--g600)">3PN</button>
+                      <button style="padding:7px 14px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--g600)">4PN+</button>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:8px;margin-top:20px">
+                    <button style="flex:1;padding:10px;border:1px solid var(--g200);border-radius:8px;font-size:13px;cursor:pointer;background:transparent;color:var(--g600)">← Quay lại</button>
+                    <button style="flex:2;padding:10px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer">Tìm căn phù hợp →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="annotation">
+              <div class="annotation-num">1</div>
+              <div>Progress bar 2 bước hoàn thành. Slider ngân sách trực quan. Sau submit → redirect sang danh sách dự án cá nhân hóa.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-S3 LISTING -->
+      <div id="w-s3" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S3 · Wireframe</div><h1 class="sec-title">Project / Unit Listing</h1><p class="sec-desc">Cho người dùng thấy ngay Feng Score Badge để tạo "aha moment" trước khi chat.</p></div>
+        <div class="wireframe-section">
+          <div class="wireframe-title">Màn hình 3 — Danh sách dự án <span class="wireframe-badge">Homepage sau onboarding</span></div>
+          <div class="wf-container">
+            <div class="wf-chrome">
+              <div class="wf-dot" style="background:#FF5F56"></div>
+              <div class="wf-dot" style="background:#FFBD2E"></div>
+              <div class="wf-dot" style="background:#27C93F"></div>
+              <div class="wf-url-bar">vfeng-compass.app/projects</div>
+            </div>
+            <div class="wf-body">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                <div>
+                  <div style="font-weight:700;font-size:16px;color:var(--navy)">Dự án phù hợp mệnh bạn</div>
+                  <div style="font-size:12px;color:var(--g400)">Mệnh Thổ — Cung Cấn · Ngân sách: 3 tỷ · 2 phòng ngủ</div>
+                </div>
+                <button style="padding:7px 14px;border:1px solid var(--g200);border-radius:8px;font-size:12px;background:transparent;cursor:pointer;color:var(--g600)">⚙ Lọc</button>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <!-- Project card 1 -->
+                <div style="background:var(--white);border:1px solid var(--g200);border-radius:10px;overflow:hidden">
+                  <div class="sk" style="height:100px;border-radius:0;background:linear-gradient(135deg,#EAF0F8,#D8E4EF)"></div>
+                  <div style="padding:12px">
+                    <div style="font-weight:600;font-size:14px;color:var(--navy)">Green Valley Residence</div>
+                    <div style="font-size:11px;color:var(--g400);margin:2px 0">Hà Đông, Hà Nội · 2.5–4.5 tỷ</div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+                      <span style="background:#EAF5EC;color:#1E7A35;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px">8 căn hợp mệnh bạn</span>
+                      <span style="font-size:11px;color:var(--g400)">42 căn còn</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Project card 2 -->
+                <div style="background:var(--white);border:1px solid var(--g200);border-radius:10px;overflow:hidden">
+                  <div class="sk" style="height:100px;border-radius:0;background:linear-gradient(135deg,#FEF3C7,#F5E6C8)"></div>
+                  <div style="padding:12px">
+                    <div style="font-weight:600;font-size:14px;color:var(--navy)">Masteri Centre Point</div>
+                    <div style="font-size:11px;color:var(--g400);margin:2px 0">Q9, HCM · 2.5–5 tỷ</div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+                      <span style="background:var(--amber-bg);color:var(--amber);font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px">3 căn hợp mệnh bạn</span>
+                      <span style="font-size:11px;color:var(--g400)">18 căn còn</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">1</div>
+            <div>Badge "X căn hợp mệnh bạn" được tính real-time từ profile user — user thấy phong thủy ngay trong browsing, không cần vào chat. Đây là điểm UX khác biệt.</div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">2</div>
+            <div>Subline dưới tiêu đề hiển thị context mệnh của user — nhắc nhở liên tục, tăng engagement và trust.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-S4 UNIT DETAIL -->
+      <div id="w-s4" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S4 · Wireframe</div><h1 class="sec-title">Unit Detail</h1><p class="sec-desc">Chi tiết căn hộ + lý do phong thủy ở mức tóm tắt, trước khi hỏi AI sâu hơn.</p></div>
+        <div class="wireframe-section">
+          <div class="wireframe-title">Màn hình 4 — Chi tiết căn hộ <span class="wireframe-badge">Feng Score Preview</span></div>
+          <div class="wf-container">
+            <div class="wf-chrome">
+              <div class="wf-dot" style="background:#FF5F56"></div>
+              <div class="wf-dot" style="background:#FFBD2E"></div>
+              <div class="wf-dot" style="background:#27C93F"></div>
+              <div class="wf-url-bar">vfeng-compass.app/units/A1205</div>
+            </div>
+            <div class="wf-body">
+              <!-- Back link -->
+              <div style="font-size:12px;color:var(--navy-lt);margin-bottom:14px;cursor:pointer">← Quay lại danh sách</div>
+              <!-- Title -->
+              <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy)">Căn A1205 · Green Valley Residence</div>
+              <div style="font-size:13px;color:var(--g400);margin-bottom:18px">Hà Đông · 2PN · 72m² · 3.2 tỷ</div>
+              <!-- Content grid -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+                <!-- Left: Image placeholder -->
+                <div>
+                  <div class="sk" style="height:180px;border-radius:8px;background:linear-gradient(135deg,#EAF0F8,#D8E4EF);display:flex;align-items:center;justify-content:center">
+                    <span style="font-size:13px;color:var(--g400)">📐 Ảnh / Floorplan</span>
+                  </div>
+                </div>
+                <!-- Right: Feng Score -->
+                <div>
+                  <div style="background:var(--jade-bg);border:1px solid rgba(26,107,90,0.3);border-radius:10px;padding:16px;margin-bottom:12px">
+                    <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Feng Score</div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <div style="width:48px;height:48px;border-radius:50%;background:#EAF5EC;border:3px solid #1E7A35;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#1E7A35;font-family:'Cormorant Garamond',serif">9</div>
+                      <div>
+                        <div style="font-size:14px;font-weight:700;color:#1E7A35">/10 — Rất hợp</div>
+                        <div style="font-size:12px;color:var(--g600)">với Cung Cấn của bạn</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="font-size:12px;line-height:2">
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--g100);padding:4px 0"><span style="color:var(--g400)">Hướng cửa</span><span style="font-weight:600">Tây Bắc ✓</span></div>
+                    <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--g100);padding:4px 0"><span style="color:var(--g400)">Hướng ban công</span><span style="font-weight:600">Đông Nam</span></div>
+                    <div style="display:flex;justify-content:space-between;padding:4px 0"><span style="color:var(--g400)">Sao</span><span style="font-weight:600;color:var(--jade)">Sinh Khí</span></div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;margin-top:14px">
+                    <button style="width:100%;padding:9px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer">💬 Hỏi AI về căn này</button>
+                    <button style="width:100%;padding:9px;background:transparent;color:var(--navy);border:1px solid var(--g200);border-radius:8px;font-size:13px;cursor:pointer">⚖ So sánh với căn khác</button>
+                    <button style="width:100%;padding:9px;background:var(--gold-bg);color:var(--amber);border:1px solid rgba(184,145,58,0.3);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">📅 Đặt lịch tư vấn</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Summary -->
+              <div style="background:var(--g50);border-radius:8px;padding:14px 16px;margin-top:16px;border:1px solid var(--g100)">
+                <div style="font-size:12px;font-weight:600;color:var(--g400);margin-bottom:4px">Tóm tắt phong thủy</div>
+                <div style="font-size:13px;color:var(--g600);line-height:1.6">Căn này có hướng cửa Tây Bắc, thuộc nhóm hướng tốt với Cung Cấn, phù hợp nếu ưu tiên ổn định và tài lộc. Ban công hướng Đông Nam là trung tính.</div>
+              </div>
+            </div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">1</div>
+            <div>Feng Score Badge 9/10 hiển thị nổi bật. CTA "Hỏi AI" truyền context căn hộ sang AI Chat interface. Có disclaimer ở cuối trang.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-S5 AI CHAT -->
+      <div id="w-s5" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S5 · Wireframe</div><h1 class="sec-title">AI Chat</h1><p class="sec-desc">Giải thích kết quả phong thủy bằng ngôn ngữ tự nhiên, dựa trên rule engine và RAG.</p></div>
+        <div class="wireframe-section">
+          <div class="wireframe-title">Màn hình 5 — AI Chat Interface <span class="wireframe-badge">Core Experience</span></div>
+          <div class="wf-container">
+            <div class="wf-chrome">
+              <div class="wf-dot" style="background:#FF5F56"></div>
+              <div class="wf-dot" style="background:#FFBD2E"></div>
+              <div class="wf-dot" style="background:#27C93F"></div>
+              <div class="wf-url-bar">vfeng-compass.app/units/A1205/chat</div>
+            </div>
+            <div class="wf-body" style="padding:0">
+              <div style="display:flex;height:360px">
+                <!-- Sidebar context -->
+                <div style="width:200px;background:var(--g50);border-right:1px solid var(--g200);padding:14px;flex-shrink:0">
+                  <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Căn đang xem</div>
+                  <div style="background:var(--white);border:1px solid var(--g200);border-radius:8px;padding:10px;margin-bottom:10px">
+                    <div style="font-weight:700;font-size:13px;color:var(--navy)">A12-05</div>
+                    <div style="font-size:11px;color:var(--g400)">Tầng 12 · 72m²</div>
+                    <div style="font-size:11px;color:var(--g400)">Hướng TB · 2 PN</div>
+                    <div style="display:flex;align-items:center;gap:5px;margin-top:6px">
+                      <div style="width:20px;height:20px;border-radius:50%;background:#EAF5EC;border:1.5px solid #1E7A35;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#1E7A35">9</div>
+                      <span style="font-size:10px;font-weight:600;color:#1E7A35">Rất hợp mệnh</span>
+                    </div>
+                  </div>
+                  <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">Sources</div>
+                  <div style="font-size:11px;color:var(--g600);padding:4px 0;border-bottom:1px solid var(--g100)">Rule BT-08</div>
+                  <div style="font-size:11px;color:var(--g600);padding:4px 0;border-bottom:1px solid var(--g100)">Doc phong thủy #12</div>
+                  <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:0.08em;margin-top:10px;margin-bottom:6px">Lịch sử chat</div>
+                  <div style="font-size:11px;color:var(--g600);padding:4px 0;border-bottom:1px solid var(--g100)">Căn A08-04</div>
+                  <div style="font-size:11px;color:var(--g600);padding:4px 0">Căn B15-12</div>
+                </div>
+                <!-- Chat area -->
+                <div style="flex:1;display:flex;flex-direction:column">
+                  <div style="flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px">
+                    <div class="chat-bubble bubble-user">Căn A1205 có hợp với tôi không?</div>
+                    <div class="chat-bubble bubble-ai">
+                      <div style="font-weight:600;font-size:11px;color:var(--jade);margin-bottom:4px">✓ Đánh giá tổng quan</div>
+                      <div>Căn A1205 <strong>rất hợp</strong> với bạn (9/10). Hướng cửa chính Tây Bắc trùng với hướng Sinh Khí của mệnh Thổ — Cung Cấn.</div>
+                      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--g100)">
+                        <div style="font-weight:600;font-size:11px;color:var(--navy-lt);margin-bottom:4px">📖 Chi tiết phân tích</div>
+                        <div style="font-size:12px;color:var(--g600)">Hướng cửa Tây Bắc thuộc nhóm hướng tốt (Sinh Khí). Ban công Đông Nam là trung tính với mệnh bạn. Tầng 12 theo Cửu tinh phù hợp sự nghiệp.</div>
+                      </div>
+                      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--g100)">
+                        <div style="font-weight:600;font-size:11px;color:var(--amber);margin-bottom:4px">⚠ Lưu ý thực tế</div>
+                        <div style="font-size:12px;color:var(--g600)">Đánh giá dựa theo Bát trạch truyền thống, mang tính tham khảo. Nên kết hợp yếu tố giá, pháp lý, tiến độ.</div>
+                      </div>
+                    </div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                      <button style="font-size:11px;padding:5px 10px;border:1px solid var(--g200);border-radius:99px;background:transparent;cursor:pointer;color:var(--g600)">Giải thích chi tiết hơn</button>
+                      <button style="font-size:11px;padding:5px 10px;border:1px solid var(--g200);border-radius:99px;background:transparent;cursor:pointer;color:var(--g600)">So sánh căn khác</button>
+                      <button style="font-size:11px;padding:5px 10px;border:1px solid var(--g200);border-radius:99px;background:transparent;cursor:pointer;color:var(--g600)">Đặt lịch tư vấn</button>
+                    </div>
+                  </div>
+                  <div style="padding:10px 14px;border-top:1px solid var(--g100);display:flex;gap:8px">
+                    <input type="text" placeholder="Hỏi thêm về phong thủy..." disabled style="flex:1;padding:9px 12px;border:1px solid var(--g200);border-radius:8px;font-family:'Source Serif 4',serif;font-size:13px;background:var(--white)">
+                    <button style="padding:9px 16px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Gửi</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">1</div>
+            <div>Sidebar trái hiển thị căn đang xem với điểm phong thủy, sources, và lịch sử chat — context luôn hiện hữu, AI không cần hỏi lại.</div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">2</div>
+            <div>Response có 3 phần rõ ràng: đánh giá tổng (1 câu) → chi tiết → lưu ý. Persona Minh đọc phần 1 là đủ; Persona Linh đọc tiếp phần 2–3.</div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">3</div>
+            <div>Quick reply buttons gợi ý bước tiếp theo — giảm friction, hướng dẫn user khai thác sâu hơn một cách tự nhiên.</div>
+          </div>
+        </div>
+        <div class="g2" style="margin-top:16px">
+          <div class="card card-sm"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">AI RESPONSE FORMAT</div><div style="font-size:13px;color:var(--g600);line-height:1.8">1. Tóm tắt 1 câu<br>2. Kết quả theo Rule Engine<br>3. Giải thích bằng ngôn ngữ dễ hiểu<br>4. Lưu ý thực tế khi mua nhà<br>5. Disclaimer: Thông tin tham khảo</div></div>
+          <div class="card card-sm"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">CÂU HỎI GỢI Ý</div><div style="font-size:13px;color:var(--g600);line-height:1.8">· "Vì sao căn này hợp với tôi?"<br>· "Nếu không hợp hướng thì sao?"<br>· "So với căn B1808 thì sao?"<br>· "Mua đầu tư thì nên ưu tiên PT?"</div></div>
+        </div>
+      </div>
+
+      <!-- W-S6 COMPARISON -->
+      <div id="w-s6" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S6 · Wireframe</div><h1 class="sec-title">AI Comparison Card</h1><p class="sec-desc">So sánh nhanh 2–3 căn hộ theo phong thủy và yếu tố thực tế.</p></div>
+        <div class="wireframe-section">
+          <div class="wireframe-title">Màn hình 6 — AI Comparison Card <span class="wireframe-badge">Decision Support</span></div>
+          <div style="background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:20px">
+            <div style="font-size:12px;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px">AI gợi ý — phù hợp nhất với mệnh Thổ · Cung Cấn của bạn</div>
+            <div class="comp-card-grid">
+              <!-- Card 1: Top pick -->
+              <div class="comp-card top-pick">
+                <div class="top-pick-banner">✦ Phù hợp nhất</div>
+                <div class="comp-card-head">
+                  <div class="comp-card-unit">A1205</div>
+                  <div class="comp-card-proj">Green Valley Residence · T12</div>
+                  <div class="comp-score-row">
+                    <div class="comp-score-badge score-green">9</div>
+                    <div class="comp-score-label">Hướng Tây Bắc<br>Sinh Khí — Rất tốt</div>
+                  </div>
+                </div>
+                <div class="comp-card-body">
+                  <div class="comp-row"><span class="comp-row-label">Giá</span><span class="comp-row-val">3.2 tỷ</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Diện tích</span><span class="comp-row-val">72m²</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Hướng cửa</span><span class="comp-row-val">Tây Bắc ✓</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Ban công</span><span class="comp-row-val">Đông Nam</span></div>
+                  <div class="comp-reason">Hướng cửa chính thuộc nhóm hướng tốt của mệnh bạn. Giá vừa ngân sách, 2PN phù hợp nhu cầu.</div>
+                </div>
+                <div class="comp-card-footer">
+                  <button class="comp-btn comp-btn-primary">Đặt lịch xem</button>
+                  <button class="comp-btn comp-btn-secondary">Hỏi AI</button>
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="comp-card">
+                <div class="comp-card-head">
+                  <div class="comp-card-unit">B1808</div>
+                  <div class="comp-card-proj">Green Valley Residence · T18</div>
+                  <div class="comp-score-row">
+                    <div class="comp-score-badge score-green">7</div>
+                    <div class="comp-score-label">Hướng Tây<br>Diên Niên — Tốt</div>
+                  </div>
+                </div>
+                <div class="comp-card-body">
+                  <div class="comp-row"><span class="comp-row-label">Giá</span><span class="comp-row-val">3.6 tỷ</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Diện tích</span><span class="comp-row-val">78m²</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Hướng cửa</span><span class="comp-row-val">Tây ✓</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Ban công</span><span class="comp-row-val">Đông △</span></div>
+                  <div class="comp-reason">Hướng Tây là hướng Diên Niên. Giá cao hơn 400tr, diện tích lớn hơn. Ban công hướng Đông là điểm trừ nhỏ.</div>
+                </div>
+                <div class="comp-card-footer">
+                  <button class="comp-btn comp-btn-primary">Đặt lịch xem</button>
+                  <button class="comp-btn comp-btn-secondary">Hỏi AI</button>
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div class="comp-card">
+                <div class="comp-card-head">
+                  <div class="comp-card-unit">C0906</div>
+                  <div class="comp-card-proj">Masteri Centre Point · T9</div>
+                  <div class="comp-score-row">
+                    <div class="comp-score-badge score-yellow">4</div>
+                    <div class="comp-score-label">Hướng Đông Nam<br>Lục Sát — Cẩn thận</div>
+                  </div>
+                </div>
+                <div class="comp-card-body">
+                  <div class="comp-row"><span class="comp-row-label">Giá</span><span class="comp-row-val">2.9 tỷ</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Diện tích</span><span class="comp-row-val">69m²</span></div>
+                  <div class="comp-row"><span class="comp-row-label">Hướng cửa</span><span class="comp-row-val">ĐN △</span></div>
+                  <div class="comp-row"><span class="comp-row-label">View</span><span class="comp-row-val">Sông ✓✓</span></div>
+                  <div class="comp-reason">Hướng Đông Nam không phải hướng lý tưởng. Tuy nhiên, view sông + giá thấp nhất là điểm cộng thực tế đáng cân nhắc.</div>
+                </div>
+                <div class="comp-card-footer">
+                  <button class="comp-btn comp-btn-primary">Đặt lịch xem</button>
+                  <button class="comp-btn comp-btn-secondary">Hỏi AI</button>
+                </div>
+              </div>
+            </div>
+            <!-- Disclaimer -->
+            <div style="margin-top:16px;padding:14px;background:var(--white);border-radius:8px;border:1px solid var(--g100)">
+              <div style="font-size:12px;font-weight:600;color:var(--g400);margin-bottom:6px">⚠ Lưu ý từ AI</div>
+              <div style="font-size:13px;color:var(--g600);line-height:1.65">Các đánh giá trên dựa trên hệ thống Bát trạch theo quan niệm phong thủy truyền thống, mang tính tham khảo. Quyết định mua nhà nên kết hợp với các yếu tố thực tế: pháp lý dự án, tiến độ bàn giao, chính sách thanh toán, và nhu cầu sử dụng thực tế của gia đình bạn.</div>
+            </div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">1</div>
+            <div>Card "Phù hợp nhất" được highlight bằng border jade + banner — rõ ràng không cần đọc chi tiết. Persona Minh nhìn một cái là biết nên xem căn nào.</div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">2</div>
+            <div>Card điểm thấp (C0906) vẫn được hiển thị với lý do thực tế (view sông, giá rẻ) — cân bằng phong thủy và thực tế, không loại bỏ hoàn toàn.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-S7 LEAD CAPTURE -->
+      <div id="w-s7" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S7 · Wireframe</div><h1 class="sec-title">Lead Capture Form</h1><p class="sec-desc">Chuyển intent thành lead có đủ context để sales follow-up.</p></div>
+        <div class="wireframe-section">
+          <div class="wireframe-title">Màn hình 7 — Đặt lịch tư vấn <span class="wireframe-badge">Lead Capture</span></div>
+          <div class="wf-container">
+            <div class="wf-chrome">
+              <div class="wf-dot" style="background:#FF5F56"></div>
+              <div class="wf-dot" style="background:#FFBD2E"></div>
+              <div class="wf-dot" style="background:#27C93F"></div>
+              <div class="wf-url-bar">vfeng-compass.app/units/A1205/book</div>
+            </div>
+            <div class="wf-body">
+              <div style="max-width:500px;margin:0 auto">
+                <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">Đặt lịch tư vấn căn A1205</div>
+                <div style="margin-bottom:14px">
+                  <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Họ tên</div>
+                  <input type="text" value="Nguyễn Thị Linh" disabled style="width:100%;padding:10px 14px;border:1px solid var(--g200);border-radius:8px;font-size:13px;background:var(--white);font-family:'Source Serif 4',serif">
+                </div>
+                <div style="margin-bottom:14px">
+                  <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Số điện thoại</div>
+                  <input type="text" value="09xxxxxxxx" disabled style="width:100%;padding:10px 14px;border:1px solid var(--g200);border-radius:8px;font-size:13px;background:var(--white);font-family:'Source Serif 4',serif">
+                </div>
+                <div style="margin-bottom:14px">
+                  <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Thời gian mong muốn</div>
+                  <div style="display:flex;gap:6px">
+                    <button style="padding:8px 14px;border:2px solid var(--navy);border-radius:8px;background:var(--navy);color:#fff;font-weight:600;font-size:12px;cursor:pointer">Tối nay ✓</button>
+                    <button style="padding:8px 14px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--g600)">Cuối tuần</button>
+                    <button style="padding:8px 14px;border:1px solid var(--g200);border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--g600)">Khác</button>
+                  </div>
+                </div>
+                <div style="margin-bottom:14px">
+                  <div style="font-size:12px;font-weight:600;color:var(--g600);margin-bottom:5px">Ghi chú</div>
+                  <textarea disabled rows="2" style="width:100%;padding:10px 14px;border:1px solid var(--g200);border-radius:8px;font-size:13px;background:var(--white);font-family:'Source Serif 4',serif;resize:none">Tôi muốn hỏi thêm về hướng ban công</textarea>
+                </div>
+                <!-- Context summary -->
+                <div style="background:var(--g50);border-radius:8px;padding:12px 14px;margin-bottom:18px;border:1px solid var(--g100)">
+                  <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">Context gửi cho Sales</div>
+                  <div style="font-size:12px;color:var(--g600);line-height:1.7">
+                    <div>• Căn quan tâm: <strong>A1205</strong></div>
+                    <div>• Score: <strong style="color:var(--jade)">9/10</strong> · Cung: <strong>Cấn</strong></div>
+                    <div>• Nhu cầu: <strong>Mua để ở</strong>, ngân sách <strong>3 tỷ</strong></div>
+                  </div>
+                </div>
+                <button style="width:100%;padding:12px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer">📩 Gửi yêu cầu tư vấn</button>
+              </div>
+            </div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">1</div>
+            <div>Lead lưu đầy đủ: tên, SĐT, căn quan tâm, score, cung mệnh, nhu cầu, chat summary. Sau gửi → trạng thái thành công. Sales nhận trong dashboard < 2 phút.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-S8 SALES DASHBOARD -->
+      <div id="w-s8" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S8 · Wireframe</div><h1 class="sec-title">Sales Dashboard</h1><p class="sec-desc">Sales xem lead mới kèm bối cảnh phong thủy để follow-up chính xác.</p></div>
+        <div class="wireframe-section">
+          <div class="wireframe-title">Màn hình 8 — Sales Dashboard <span class="wireframe-badge">Sales Agent View</span></div>
+          <div class="wf-container">
+            <div class="wf-chrome">
+              <div class="wf-dot" style="background:#FF5F56"></div>
+              <div class="wf-dot" style="background:#FFBD2E"></div>
+              <div class="wf-dot" style="background:#27C93F"></div>
+              <div class="wf-url-bar">vfeng-compass.app/sales/leads</div>
+            </div>
+            <div class="wf-body" style="padding:0">
+              <div style="display:flex;min-height:350px">
+                <!-- Left sidebar -->
+                <div style="width:220px;background:var(--g50);border-right:1px solid var(--g200);padding:16px;flex-shrink:0">
+                  <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:14px">Sales Dashboard</div>
+                  <!-- Status cards -->
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px">
+                    <div style="background:var(--crimson-bg);border-radius:6px;padding:8px 10px;text-align:center">
+                      <div style="font-size:18px;font-weight:700;color:var(--crimson)">12</div>
+                      <div style="font-size:9px;color:var(--g400);font-weight:600;text-transform:uppercase">New</div>
+                    </div>
+                    <div style="background:var(--amber-bg);border-radius:6px;padding:8px 10px;text-align:center">
+                      <div style="font-size:18px;font-weight:700;color:var(--amber)">8</div>
+                      <div style="font-size:9px;color:var(--g400);font-weight:600;text-transform:uppercase">Contacted</div>
+                    </div>
+                    <div style="background:#EAF0F8;border-radius:6px;padding:8px 10px;text-align:center">
+                      <div style="font-size:18px;font-weight:700;color:var(--navy-lt)">3</div>
+                      <div style="font-size:9px;color:var(--g400);font-weight:600;text-transform:uppercase">Scheduled</div>
+                    </div>
+                    <div style="background:var(--jade-bg);border-radius:6px;padding:8px 10px;text-align:center">
+                      <div style="font-size:18px;font-weight:700;color:var(--jade)">1</div>
+                      <div style="font-size:9px;color:var(--g400);font-weight:600;text-transform:uppercase">Closed</div>
+                    </div>
+                  </div>
+                  <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">Lead List</div>
+                  <div style="background:var(--navy);color:#fff;border-radius:6px;padding:8px 10px;margin-bottom:4px;font-size:12px;font-weight:600">Linh · A1205 <span style="float:right;font-size:10px;opacity:0.6">Mới</span></div>
+                  <div style="background:var(--white);border:1px solid var(--g200);border-radius:6px;padding:8px 10px;margin-bottom:4px;font-size:12px;color:var(--g600)">Minh · B1808 <span style="float:right;font-size:10px;color:var(--g400)">Contacted</span></div>
+                  <div style="background:var(--white);border:1px solid var(--g200);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--g600)">Hoa · C0906 <span style="float:right;font-size:10px;color:var(--g400)">Scheduled</span></div>
+                </div>
+                <!-- Right detail -->
+                <div style="flex:1;padding:20px">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+                    <div>
+                      <div style="font-size:18px;font-weight:700;color:var(--navy)">Nguyễn Thị Linh</div>
+                      <div style="font-size:12px;color:var(--g400)">09xxxxxxxx · Lead mới · 2 phút trước</div>
+                    </div>
+                    <span style="background:var(--crimson-bg);color:var(--crimson);font-size:10px;font-weight:700;padding:4px 10px;border-radius:99px">NEW</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+                    <div style="background:var(--g50);border-radius:8px;padding:12px">
+                      <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;margin-bottom:4px">Căn quan tâm</div>
+                      <div style="font-size:14px;font-weight:700;color:var(--navy)">A1205</div>
+                      <div style="font-size:11px;color:var(--g400)">Green Valley · T12 · 2PN</div>
+                    </div>
+                    <div style="background:var(--jade-bg);border-radius:8px;padding:12px">
+                      <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;margin-bottom:4px">Feng Score</div>
+                      <div style="font-size:14px;font-weight:700;color:var(--jade)">9/10 — Rất hợp</div>
+                      <div style="font-size:11px;color:var(--g600)">Cung: Cấn · Nhóm: Tây tứ mệnh</div>
+                    </div>
+                  </div>
+                  <div style="background:var(--g50);border-radius:8px;padding:12px;margin-bottom:14px">
+                    <div style="font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;margin-bottom:4px">Nhu cầu</div>
+                    <div style="font-size:13px;color:var(--g600)">Mua để ở · 2PN · Ngân sách 3 tỷ</div>
+                  </div>
+                  <div style="background:var(--gold-bg);border-radius:8px;padding:12px;margin-bottom:14px;border-left:3px solid var(--gold)">
+                    <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;margin-bottom:4px">AI Summary</div>
+                    <div style="font-size:13px;color:var(--g600);line-height:1.6">Khách quan tâm hướng cửa chính, muốn xác nhận lý do hợp mệnh. Đã chat 3 câu hỏi về phong thủy căn A1205. Quan tâm thêm về hướng ban công.</div>
+                  </div>
+                  <div style="display:flex;gap:8px">
+                    <button style="flex:1;padding:10px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer">📞 Gọi khách</button>
+                    <button style="flex:1;padding:10px;background:transparent;color:var(--navy);border:1px solid var(--g200);border-radius:8px;font-size:13px;cursor:pointer">Đổi trạng thái</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">1</div>
+            <div>Sales xem lead theo trạng thái (New, Contacted, Scheduled, Closed). Mỗi lead có context đầy đủ: căn hộ, score, cung mệnh, nhu cầu, AI chat summary.</div>
+          </div>
+          <div class="annotation">
+            <div class="annotation-num">2</div>
+            <div>AI Summary tóm tắt nội dung chat — sales không cần đọc lại toàn bộ cuộc hội thoại, biết ngay khách quan tâm gì.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-S9 ADMIN -->
+      <div id="w-admin" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">S9–S10 · Admin</div><h1 class="sec-title">Admin Projects & RAG Knowledge</h1></div>
+        <div class="g2">
+          <div>
+            <div class="sub-title" style="margin-top:0">S9 — Admin Projects / Units</div>
+            <div class="tbl-wrap">
+              <table class="tbl">
+                <tr><th>Field</th><th>Required</th><th>Ghi chú</th></tr>
+                <tr><td>apartment_id</td><td>Yes</td><td>Mã căn hộ</td></tr>
+                <tr><td>project_id</td><td>Yes</td><td>Liên kết dự án</td></tr>
+                <tr><td>floor, area_m2, bedrooms</td><td>Yes</td><td>Thông tin cơ bản</td></tr>
+                <tr><td>price_total</td><td>Yes</td><td>Giá tổng</td></tr>
+                <tr><td>main_door_direction</td><td>Yes</td><td>Hướng cửa chính ⚠ bắt buộc</td></tr>
+                <tr><td>balcony_direction</td><td>Should</td><td>Hướng ban công</td></tr>
+                <tr><td>availability_status</td><td>Yes</td><td>Available / Sold / Reserved</td></tr>
+              </table>
+            </div>
+          </div>
+          <div>
+            <div class="sub-title" style="margin-top:0">S10 — Admin RAG Knowledge</div>
+            <div class="card card-sm" style="font-size:13px;color:var(--g600);line-height:1.8">
+              <strong style="color:var(--navy)">Upload & Quản lý tài liệu RAG:</strong><br>
+              · Kéo thả PDF / Markdown<br>
+              · Metadata: source_name, topic, reliability_level<br>
+              · Hệ thống auto chunk + embed<br>
+              · Bảng Knowledge Chunks: ID, Source, Topic, Used count<br><br>
+              <strong style="color:var(--crimson)">⚠ Nếu RAG mâu thuẫn rule engine → ưu tiên rule engine.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- W-10 STATES & MOBILE -->
+      <div id="w-states" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">10 · Empty / Error States & Mobile</div><h1 class="sec-title">Xử lý trạng thái & Responsive</h1></div>
+        <div class="sub-title" style="margin-top:0">Empty / Loading / Error States</div>
+        <div class="tbl-wrap" style="margin-bottom:24px">
+          <table class="tbl">
+            <tr><th>State</th><th>Màn hình</th><th>Cách xử lý</th></tr>
+            <tr><td>Empty listing</td><td>Project Listing</td><td>Hiển thị "Chưa có căn phù hợp", gợi ý nới ngân sách/hướng</td></tr>
+            <tr><td>LLM timeout</td><td>AI Chat</td><td>Hiển thị kết quả rule engine trước, báo AI đang lỗi tạm thời</td></tr>
+            <tr><td>RAG no result</td><td>AI Chat</td><td>Trả lời dựa trên rule engine, không bịa nguồn</td></tr>
+            <tr><td>Missing profile</td><td>Listing / Chat</td><td>Điều hướng về Profile Wizard</td></tr>
+            <tr><td>Missing direction</td><td>Admin Units</td><td>Không cho lưu căn hộ nếu thiếu hướng cửa chính</td></tr>
+            <tr><td>Lead submit failed</td><td>Lead Form</td><td>Cho retry và giữ lại dữ liệu đã nhập</td></tr>
+          </table>
+        </div>
+        <div class="sub-title">Mobile Responsive Notes</div>
+        <div class="g2">
+          <div class="card card-sm"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">MOBILE LAYOUT PRIORITY</div><div style="font-size:13px;color:var(--g600);line-height:1.8">1. Feng Score<br>2. Tên căn + giá + diện tích<br>3. Hướng cửa / hướng ban công<br>4. CTA: Hỏi AI<br>5. CTA: So sánh<br>6. CTA: Đặt lịch tư vấn</div></div>
+          <div class="card card-sm"><div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">NGUYÊN TẮC RESPONSIVE</div><div style="font-size:13px;color:var(--g600);line-height:1.8">· Sidebar filter → bottom sheet<br>· Context panel → drawer<br>· Comparison → carousel ngang<br>· CTA luôn trong vùng ngón cái<br>· Min touch target: 44px</div></div>
+        </div>
+      </div>
+
+      <!-- W-11 DESIGN SYSTEM -->
+      <div id="w-design" class="section">
+        <div class="sec-header"><div class="sec-eyebrow">11 · Design System</div><h1 class="sec-title">Design System sơ bộ & Checklist</h1></div>
+        <div class="g2" style="margin-bottom:24px">
+          <div>
+            <div class="sub-title" style="margin-top:0">Color System</div>
+            <div class="tbl-wrap">
+              <table class="tbl">
+                <tr><th>Thành phần</th><th>Quy ước</th></tr>
+                <tr><td>Primary color</td><td><span style="display:inline-block;width:14px;height:14px;background:#0B1D36;border-radius:3px;vertical-align:middle;margin-right:6px"></span>Navy #0B1D36</td></tr>
+                <tr><td>Accent color</td><td><span style="display:inline-block;width:14px;height:14px;background:#B8913A;border-radius:3px;vertical-align:middle;margin-right:6px"></span>Gold #B8913A</td></tr>
+                <tr><td>Good score (8–10)</td><td><span style="display:inline-block;width:14px;height:14px;background:#1A6B5A;border-radius:3px;vertical-align:middle;margin-right:6px"></span>Jade #1A6B5A</td></tr>
+                <tr><td>Medium score (5–7)</td><td><span style="display:inline-block;width:14px;height:14px;background:#92610A;border-radius:3px;vertical-align:middle;margin-right:6px"></span>Amber/Gold bg</td></tr>
+                <tr><td>Bad score (1–4)</td><td><span style="display:inline-block;width:14px;height:14px;background:#A0272A;border-radius:3px;vertical-align:middle;margin-right:6px"></span>Crimson #A0272A</td></tr>
+                <tr><td>Font</td><td>Serif heading, sans-serif body</td></tr>
+              </table>
+            </div>
+          </div>
+          <div>
+            <div class="sub-title" style="margin-top:0">MVP Handoff Checklist</div>
+            <div class="tbl-wrap">
+              <table class="tbl">
+                <tr><th>Hạng mục</th><th>Trạng thái</th></tr>
+                <tr><td>Overall user flow</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+                <tr><td>Screen map</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+                <tr><td>Wireframe từng màn hình</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+                <tr><td>Buyer journey</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+                <tr><td>Sales/admin flow</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+                <tr><td>Acceptance criteria</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+                <tr><td>Mobile responsive notes</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+                <tr><td>Empty/error states</td><td><span class="tag tag-jade">✅ Có</span></td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="callout callout-jade">
+          <div class="callout-title">🎯 Kết luận</div>
+          Wireframe/UI Flow của V-FENG Compass tập trung vào trải nghiệm ra quyết định: người dùng không chỉ "hỏi AI", mà được dẫn qua một hành trình rõ ràng từ hồ sơ cá nhân → dữ liệu căn hộ → điểm phong thủy → giải thích AI → so sánh → lead tư vấn.<br><br>
+          <strong>Rule Engine quyết định kết quả. RAG cung cấp nguồn giải thích. LLM trình bày bằng ngôn ngữ tự nhiên. UI phải làm người dùng thấy được điều đó một cách rõ ràng.</strong>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function switchTab(tabId) {
+  // Hide all tab panes
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  // Deactivate all top tabs
+  document.querySelectorAll('.top-tab').forEach(t => t.classList.remove('active'));
+  // Show target pane
+  document.getElementById('tab-' + tabId).classList.add('active');
+  // Activate clicked tab
+  event.currentTarget.classList.add('active');
+  // Scroll to top
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showSec(el, secId) {
+  // Find the parent tab-pane
+  const pane = el.closest('.tab-pane');
+  // Hide all sections in this pane
+  pane.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  // Deactivate all nav items in this pane
+  pane.querySelectorAll('.sn-item').forEach(i => i.classList.remove('active'));
+  // Show target section
+  document.getElementById(secId).classList.add('active');
+  // Activate clicked nav item
+  el.classList.add('active');
+  // Scroll to top
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
